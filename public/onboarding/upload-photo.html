@@ -80,6 +80,10 @@
     <script type="text/javascript">
       app.scope('imageUploader',function($scope,$patch,requester,grootSvc,app){
 
+        if (requester.isOnline()==='offline') {
+            location.href='/index.html';
+        }
+
         $scope.state = {
           isUploadingPhoto: false,
           hasUploaded: false
