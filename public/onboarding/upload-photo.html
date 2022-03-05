@@ -1,0 +1,191 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload Profile Photo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/widget/widget.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/widget/app.js"></script>
+    <script>
+      UPLOADCARE_PUBLIC_KEY = '86c8e82d3259218edeb5';
+      UPLOADCARE_TABS = 'file';
+      IMAGES_ONLY = true;
+    </script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
+  </head>
+  <body>
+    <section id="loader">
+      <div class="loading">
+        <img id="spinner" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+      </div>
+    </section>
+    <section xscope="imageUploader" id="main" class="h-100">
+      <main class="flex main-d-r ac jc h-inherit">
+        <div class="welcome-message">
+          Hello, {{displayFirstName()}}! 😍
+        </div>
+        <div class="card upload-photo">
+          <div class="cover-photo" style="background:url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/pf-s80-pastel-ploy-01a_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=e62589c7cce41bd0a8314e806a23928d')">
+
+          </div>
+          <div xpatch="photoPreviewer" class="photo-preview flex ac jc">
+            <div xif="state.isUploadingPhoto==false">
+              <div class="photo-cont" style="background: url('{{imageSrc}}')"></div>
+            </div>
+            <div xif="state.isUploadingPhoto">
+              <div class="photo-cont is-uploading">
+                <img class="submit-spinner" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+              </div>
+            </div>
+          </div>
+          <hr class="spacer medium">
+          <div class="flex">
+            <div class="">
+              <div class="page title is-6">Upload Profile Photo</div>
+              <div class="subtitle is-7">Let people know how beautiful you are!</div>
+            </div>
+            <div xpatch="buttonState" class="upload-button-container">
+              <div xif="state.hasUploaded==false">
+                <div class="file has-name is-right">
+                  <label class="file-label">
+                    <button xclick="uploadImage()" class="button is-primary">Upload</button>
+                  </label>
+                </div>
+              </div>
+              <div xif="state.hasUploaded">
+                <button class="button is-primary" type="button" name="button">Next</button>
+              </div>
+
+
+              <input id="uploader" data-images-only type="hidden" />
+            </div>
+          </div>
+          <br>
+          <div class="subtitle is-7 w-50">Skip This Step</div>
+        </div>
+      </main>
+    </section>
+
+
+    <script type="text/javascript">
+
+
+
+    </script>
+
+    <script type="text/javascript">
+      app.scope('imageUploader',function($scope,$patch,requester,grootSvc,app){
+
+        $scope.state = {
+          isUploadingPhoto: false,
+          hasUploaded: false
+        }
+
+        $scope.displayFirstName=function(){
+          return requester.getName().split(' ')[0];
+        }
+
+
+        $scope.imageSrc = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+
+        var widget = uploadcare.SingleWidget('#uploader');
+        widget.onUploadComplete(fileInfo => {
+
+          // get a CDN URL from the file info
+          $scope.imageSrc = fileInfo.cdnUrl;
+          $.ajax({
+            method:'PATCH',
+            url:grootSvc.root+'v1/users/update/profile',
+            data:JSON.stringify({
+              token: requester.getToken(),
+              profile: {
+                profilePhoto: fileInfo.cdnUrl
+              }
+            }),
+            success:function(response){
+              requester.setPhoto(fileInfo.cdnUrl);
+              $scope.state.isUploadingPhoto = false;
+              $scope.state.hasUploaded = true;
+              $patch('buttonState');
+              $patch('photoPreviewer');
+              console.log(response);
+            },
+            error:function(response){
+              console.log(response);
+            }
+          });
+
+        });
+        $scope.uploadImage = function(){
+          $scope.state.isUploadingPhoto = true;
+          $patch('photoPreviewer');
+          widget.openDialog();
+        }
+
+        app.ready();
+
+      });
+
+    </script>
+
+    <style>
+      .upload-photo.card {
+        width: 100%;
+        max-width: 500px;
+        padding: 20px;
+        padding-top: 35px;
+        background-color: #fffffffa;
+        height: max-content;
+      }
+      .upload-button-container {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 50%;
+      }
+      .uploadcare--widget__button {
+        display: none;
+      }
+      .photo-cont {
+        height: 200px;
+        width: 200px;
+        border-radius: 200px;
+        background-position: center !important;
+        background-size: cover !important;
+      }
+      .photo-cont.is-uploading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .main-d-r {
+        flex-direction: column;
+      }
+      .welcome-message {
+        font-size: 24px;
+        color: #d7d7d7;;
+        margin-bottom: 24px;
+      }
+      .submit-spinner {
+        height: 35px;
+      }
+      #main {
+       padding: 15px;
+      }
+      .cover-photo {
+        height: 200px;
+        background-size: cover !important;
+        background-position: center !important;
+        margin-bottom: -100px;
+      }
+      @media (min-width:760px){
+        .upload-photo.card {
+          padding: 40px;
+        }
+      }
+    </style>
+  </body>
+</html>

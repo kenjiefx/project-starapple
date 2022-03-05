@@ -1,0 +1,22 @@
+{
+  "name": "project-starapple",
+  "version": "1.0.0",
+  "description": "App UI for social media project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenjiefx/project-starapple.git"
+  },
+  "author": "Ken Terrado",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kenjiefx/project-starapple/issues"
+  },
+  "homepage": "https://github.com/kenjiefx/project-starapple#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
