@@ -10,9 +10,11 @@ app.factory('grootSvc',function(){
   return {
     //root: 'https://grootsvcapis.com/api/',
     root:'http://localhost/api/',
-    publicKey: 'm3Ne22u7es3uT7p5az8S2PUNnX3KDw'
+    publicKey: 'eg2n22JrBi2WfEr5L3jsRviuseZJ61'
   }
 });
+
+
 
 app.factory('requester',function(){
   return {
@@ -24,7 +26,7 @@ app.factory('requester',function(){
     },
     setOffline:function(){
         localStorage.setItem('ractive','offline');
-        localStorage.setItem('rtoken',null);
+        localStorage.setItem('rtoken','public');
     },
     setToken:function(token){
         localStorage.setItem('rtoken',token);
@@ -38,8 +40,17 @@ app.factory('requester',function(){
     setPhoto:function(url){
       localStorage.setItem('rphoto',url);
     },
+    getPhoto:function(){
+      if (localStorage.getItem('rphoto')=='null') {
+          return '/images/empty-profile.png';
+      }
+      return localStorage.getItem('rphoto');
+    },
     setUsername:function(username){
         localStorage.setItem('rusername',username);
+    },
+    getUsername:function(){
+      return null==localStorage.getItem('rusername')?'':localStorage.getItem('rusername')
     },
     getToken:function(){
         return null==localStorage.getItem('rtoken')?'invalidated':localStorage.getItem('rtoken')
@@ -53,6 +64,8 @@ app.factory('requester',function(){
     }
   }
 });
+
+
 
 app.service("errorHandler", function ($scope, $patch) {
   return {
@@ -174,6 +187,18 @@ app.factory('app',(requester,grootSvc)=>{
                     },300000);
                 }
             },500);
+        }
+    }
+});
+app.factory('url',function(){
+    return {
+        get:function(requester){
+            let url = location.href;
+            let name = requester.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regexS = "[\\?&]"+name+"=([^&#]*)";
+            var regex = new RegExp( regexS );
+            var results = regex.exec( url );
+            return results == null ? null : results[1];
         }
     }
 });

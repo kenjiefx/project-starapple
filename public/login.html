@@ -1,0 +1,158 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/widget/widget.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/widget/app.js"></script>
+  </head>
+  <body>
+    <section id="loader">
+      <div class="loading">
+        <img id="spinner" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+      </div>
+    </section>
+    <section xscope="loginCtrl" id="main" class="h-100">
+        <main class="flex ac jc h-inherit">
+          <div class="card login">
+              <div class="page title is-5">Sign In</div>
+              <div class="subtitle is-7">Join the a community of reviewers and critiques</div>
+              <hr class="spacer medium">
+              <div class="subtitle is-7">Want to create an account? <strong>Sign up here</strong></div>
+              <hr class="spacer medium">
+              <div class="field">
+                <div class="label-rg is-8">Username or Email</div>
+                <input xmodel="forms.uemail" xchange="validate.uemail()" class="input" type="text" placeholder="Ex. joe1993 or joe@gmail.com">
+              </div>
+              <div class="field">
+                <div class="label-rg is-8">Password</div>
+                <input xmodel="forms.password" xchange="validate.password()" class="input" type="password" placeholder="">
+              </div>
+              <hr class="spacer medium">
+              <div class="field flex footers">
+                <div class="">
+                    <button xclick="submitLogin()" class="button is-primary">Login</button>
+                </div>
+                <div class="">
+                    <div class="subtitle is-7"><strong>Create Account</strong></div>
+                </div>
+              </div>
+              <div xpatch="formErrors" class="field">
+                  <div xif="hasError==true">
+                    <div class="notification is-danger is-light"><button xclick="removeErrorMessage()" class="delete"></button>{{errorMessage}}</div>
+                  </div>
+              </div>
+          </div>
+        </main>
+    </section>
+    <script type="text/javascript">
+        app.scope('loginCtrl',function($scope,$patch,errorHandler,grootSvc,requester){
+            if (requester.isOnline()!=='offline') {
+                location.href='/user/profile.html';
+            }
+            $scope.hasError = false;
+            $scope.forms = {};
+            let checkpoint = {
+                uemail: false,
+                password: false
+            }
+            $scope.submitLogin=function(button){
+                button.addClass('is-loading');
+                if (!checkpoint.uemail) {
+                    errorHandler.show('Invalid username or email');
+                    button.removeClass('is-loading');
+                    return;
+                }
+                if (!checkpoint.password) {
+                    errorHandler.show('Password cannot be empty');
+                    button.removeClass('is-loading');
+                    return;
+                }
+                let email = 'unknown@email.com';
+                let username = 'unknown';
+                if ($scope.forms.uemail.includes('@')) {
+                    email = $scope.forms.uemail;
+                } else {
+                    username = $scope.forms.uemail;
+                }
+                $.ajax({
+                    method:'POST',
+                    url:grootSvc.root+'v1/users/auth/local',
+                    data: JSON.stringify({
+                        publicKey:grootSvc.publicKey,
+                        password: $scope.forms.password,
+                        email: email,
+                        username: username
+                    }),
+                    success:function(response){
+                        requester.setOnline();
+                        requester.setToken(response.token);
+                        requester.setName(response.user.firstName,response.user.lastName);
+                        requester.setPhoto(response.user.profilePhoto);
+                        requester.setUsername(response.user.username);
+                        location.href='/user/profile.html';
+                    },
+                    error:function(response){
+                        errorHandler.show('Sorry, you provided invalid credentials.');
+                        button.removeClass('is-loading');
+                    }
+                });
+
+            }
+            $scope.validate = {
+                uemail:function(input){
+                  input.removeClass('has-error');
+                  $scope.removeErrorMessage();
+                  if ($scope.forms.uemail.length<5) {
+                    input.addClass('has-error');
+                    errorHandler.show('Invalid username or email');
+                    checkpoint.uemail = false;
+                    return;
+                  }
+                  checkpoint.uemail = true;
+                },
+                password:function(input){
+                    input.removeClass('has-error');
+                    $scope.removeErrorMessage();
+                    if ($scope.forms.password.length<1) {
+                      input.addClass('has-error');
+                      errorHandler.show('Password cannot be empty');
+                      checkpoint.password = false;
+                      return;
+                    }
+                    checkpoint.password = true;
+                }
+            }
+            $scope.removeErrorMessage=function(){
+              errorHandler.clear();
+            }
+        });
+    </script>
+    <style media="screen">
+        .login.card {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            padding-top: 35px;
+            background-color: #fffffffa;
+        }
+        .login .footers {
+            justify-content: space-between;
+            align-items: center;
+        }
+        @media (min-width:760px){
+          .login.card {
+            padding: 40px;
+          }
+          .input {
+            padding: 23px;
+          }
+        }
+    </style>
+  </body>
+</html>
