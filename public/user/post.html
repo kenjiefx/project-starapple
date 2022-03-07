@@ -78,10 +78,10 @@
                                     <div class="post-card-header flex">
                                         <div class="post-card-left">
                                             <div xif="review.profilePhoto==null">
-                                                <div class="post-card-profile-photo" style="background:url('/images/empty-profile.png');background-size: cover; background-position:center;"></div>
+                                                <a href="/user/profile.html?user={{review.username}}"><div class="post-card-profile-photo" style="background:url('/images/empty-profile.png');background-size: cover; background-position:center;"></div></a>
                                             </div>
                                             <div xif="review.profilePhoto!==null">
-                                                <div class="post-card-profile-photo" style="background:url('{{review.profilePhoto}}');background-size: cover; background-position:center;"></div>
+                                                <a href="/user/profile.html?user={{review.username}}"><div class="post-card-profile-photo" style="background:url('{{review.profilePhoto}}');background-size: cover; background-position:center;"></div></a>
                                             </div>
                                         </div>
                                         <div class="post-card-middle">
@@ -89,7 +89,7 @@
                                                 {{$parent.formatDate(review.createdAt)}}
                                             </div>
                                             <div class="flex ac">
-                                                <div class="post-card-single-username">@{{review.username}}</div>
+                                                <div class="post-card-single-username"><a class="normal-link" href="/user/profile.html?user={{review.username}}">@{{review.username}}</a></div>
                                                 <div class="review-single-score">
                                                     {{$parent.generateStars(review.score)}}
                                                 </div>
@@ -355,7 +355,10 @@
                 return moment(date).format('MMMM D, YYYY');
             }
             $scope.roundOff=function(average){
-                if (average==0) {
+                if (average==undefined) {
+                    return '0.0';
+                }
+                if (average===0) {
                     return '0.0';
                 }
                 return average.toFixed(2);

@@ -121,6 +121,16 @@ main.with-header {
     margin-left: 25px;
 }
 
+a.normal-link:link {
+    color: #282828 !important;
+}
+a.normal-link:visited {
+    color: #282828 !important;
+}
+a.normal-link:hover {
+    color: #673ab7 !important;
+}
+
 .s-title {
     font-size: 16.5px;
     letter-spacing: 0.1px;
