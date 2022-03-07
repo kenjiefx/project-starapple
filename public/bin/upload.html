@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Test Upload</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    </head>
+    <body>
+        <form name="image-upload" id="imageUploader" method="POST" enctype="multipart/form-data" action="http://localhost:5050/push">
+            <input id="file-input-handler" type="file" name="filetoupload">
+            <button id="submit" type="button" name="button">Submit</button>
+        </form>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#submit').click(function(){
+                $('#imageUploader').submit();
+            });
+            $('#imageUploader').submit(function(e){
+                var fd = new FormData();
+                fd.append('myFile',$('#file-input-handler')[0].files[0]);
+                $.ajax({
+                  url: 'http://localhost:5050/push',
+                  type: 'POST',
+                  method: 'POST',
+                  data: fd,
+                  processData: false,
+                  contentType: false
+                });
+                e.preventDefault();
+            });
+
+        });
+    </script>
+
+    </body>
+</html>
