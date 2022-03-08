@@ -22,6 +22,10 @@ body {
   display: flex;
 }
 
+.dir-col {
+  flex-direction: column;
+}
+
 .ac {
   align-items: center;
 }
@@ -177,6 +181,11 @@ a.normal-link:hover {
     margin-left: 8px;
 }
 
+.post-card-username-write {
+    font-weight: 200;
+    font-size: 15.6;
+}
+
 .post-card-single-username {
     margin-right: 10px;
     font-size: 15.6;
@@ -190,6 +199,22 @@ a.normal-link:hover {
     font-family: 'Roboto';
     font-size: 15.5px;
     font-weight: 400;
+}
+
+.post-listing-image {
+    width: 100%;
+    height: 280px;
+}
+
+.post-listing-image-container {
+  padding: 10px;
+  background-color: #fbfbfb;
+  border-radius: 20px;
+}
+
+.post-single-image-container {
+  margin-top: 12px;
+  margin-bottom: 10px;
 }
 
 .post-card-middle {
@@ -223,6 +248,13 @@ a.normal-link:hover {
     border-top-width: 1px;
     padding-top: 8px;
     margin-top: 8px;
+}
+
+.post-photo-preview {
+  height: 120px;
+  width: 120px;
+  border-radius: 25px;
+  margin-right: 15px;
 }
 
 .post-card-bottomline > div {
@@ -406,6 +438,20 @@ textarea.create-new-post:focus {
     padding: 5px 35px;
 }
 
+.add-photo-button {
+  margin-right: 10px;
+    background-color: #f1f1f1;
+    padding: 5px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-photo-button:hover {
+  background-color: #693cba;
+  color: white;
+}
+
 @media (min-width:760px){
     .user-card {
 
@@ -514,4 +560,19 @@ hr {
 
 .input.has-error {
     border-color: #f14668;
+}
+
+select.select {
+  padding-left: 10px;
+  font-family: 'Roboto';
+  font-size: 14px;
+}
+
+select.select.visibility {
+  border-radius: 20px;
+  margin-right: 10px;
+  background-color: #6c6c6c;
+  border-style: none;
+  color: white;
+  font-size: 12px;
 }

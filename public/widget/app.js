@@ -10,7 +10,7 @@ app.factory('grootSvc',function(){
   return {
     //root: 'https://grootsvcapis.com/api/',
     root:'http://localhost/api/',
-    publicKey: 'eg2n22JrBi2WfEr5L3jsRviuseZJ61'
+    publicKey: 'm3Ne22u7es3uT7p5az8S2PUNnX3KDw'
   }
 });
 

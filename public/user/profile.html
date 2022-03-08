@@ -44,6 +44,28 @@
                         </div>
                         <div class="new-post-ctas flex">
                             <button xclick="submitNewPost()" type="button" class="button is-primary" xdisable="submitPostButton" name="button">Post</button>
+                            <div xshow="imageUploader">
+                              <div class="add-photo-button flex ac">
+                                <div class="file">
+                                  <label class="file-label">
+                                    <input id="file-upload-handle" xchange="uploadPostPhoto()" class="file-input" type="file" name="resume" accept="image/png, image/jpeg" />
+                                    <span class="flex">
+                                      <span class="file-labels" style="margin-right:8px">
+                                        Add Photo
+                                      </span>
+                                      <span class="file-icon-update">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill:#646464;transform: ;msFilter:;"><path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"></path><path d="m8 11-3 4h11l-4-6-3 4z"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
+                                      </span>
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div xpatch="newPhotoPreviewer">
+                              <div xif="newPostImage!==null">
+                                <div class="post-photo-preview" style="background:url('{{newPostImage}}'); background-position: center; background-size: cover;"></div>
+                              </div>
+                            </div>
                         </div>
                     </div>
                     <div xrepeat="user.posts.list as post" class="w-100">
@@ -61,7 +83,7 @@
                                     </div>
                                     <div class="post-card-middle">
                                         <div class="format-date">
-                                            {{$parent.formatDate(post.createdAt)}}
+                                            {{$parent.formatDate(post.createdAt)}} • {{post.visibility}}
                                         </div>
                                         <div class="flex ac">
                                             <div class="s-title">{{$parent.user.firstName}} {{$parent.user.lastName}}</div>
@@ -70,8 +92,13 @@
                                         <div class="post-card-body">
                                             {{post.postBody}}
                                         </div>
+                                        <div xif="post.src!==null">
+                                          <div class="post-listing-image-container">
+                                            <div class="post-listing-image" style="background:url('{{post.src}}'); background-position: center; background-size: cover;"></div>
+                                          </div>
+                                        </div>
                                         <div class="post-card-bottomline flex ac">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M20 2H4c-1.103 0-2 .894-2 1.992v12.017C2 17.106 2.897 18 4 18h3v4l6.351-4H20c1.103 0 2-.894 2-1.992V3.992A1.998 1.998 0 0 0 20 2zm-9 8a2 2 0 1 1-2-2c.086 0 .167.015.25.025.082-.014.164-.025.25-.025A1.5 1.5 0 0 1 11 9.5c0 .086-.012.168-.025.25.01.083.025.165.025.25zm4 2a2 2 0 0 1-2-2c0-.086.015-.167.025-.25A1.592 1.592 0 0 1 13 9.5 1.5 1.5 0 0 1 14.5 8c.086 0 .168.011.25.025.083-.01.164-.025.25-.025a2 2 0 0 1 0 4z"></path></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M20 2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3v3.766L13.277 18H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14h-7.277L9 18.234V16H4V4h16v12z"></path><circle cx="15" cy="10" r="2"></circle><circle cx="9" cy="10" r="2"></circle></svg>
                                             <div class="">
                                                 {{post.totalReviewsCount}} {{$parent.printPlural(post.totalReviewsCount,'Review','Reviews')}}
                                             </div>
@@ -81,7 +108,12 @@
                                         </div>
                                     </div>
                                     <div class="post-card-right">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:#bfbfbf;transform: ;msFilter:;"><path d="m14.303 6-3-2H6V2H4v20h2v-8h4.697l3 2H20V6z"></path></svg>
+                                        <div xif="$parent.isOwnView==false">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:#bfbfbf;transform: ;msFilter:;"><path d="m14.303 6-3-2H6V2H4v20h2v-8h4.697l3 2H20V6z"></path></svg>
+                                        </div>
+                                        <div xif="$parent.isOwnView==true">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" style="fill:#d9d9d9;transform: ;msFilter:;"><path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path></svg>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +146,44 @@
               <div xif="onCreatePost==true">
                   <div class="card createPost">
                       <div class="page title is-5">Write A Post</div>
+
+                      <div class="post-card" style="margin-bottom: 25px;">
+                          <div class="post-card-header flex">
+                              <div class="post-card-left">
+                                  <div class="post-card-profile-photo" style="background:url('{{user.profilePhoto}}');background-size: cover; background-position:center;"></div>
+                              </div>
+                              <div class="post-card-middle">
+                                  <div class="format-date">
+                                  </div>
+                                  <div class="flex jc dir-col">
+                                      <div class="s-title">{{user.firstName}} {{user.lastName}}</div>
+                                      <div class="post-card-username-write">@{{user.username}}</div>
+                                  </div>
+                              </div>
+                              <div class="post-card-right">
+                                <div class="flex ac">
+                                  <select xmodel="newPostVisibility" xchange="changeVisibility()" class="select visibility" name="">
+                                    <option value="public">Public</option>
+                                    <option value="private">Only Me</option>
+                                  </select>
+                                  <div xpatch="visibilityIcon" class="visibility-icon-cont">
+                                    <div xif="newPostVisibility=='public'">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zM4 12c0-.899.156-1.762.431-2.569L6 11l2 2v2l2 2 1 1v1.931C7.061 19.436 4 16.072 4 12zm14.33 4.873C17.677 16.347 16.687 16 16 16v-1a2 2 0 0 0-2-2h-4v-3a2 2 0 0 0 2-2V7h1a2 2 0 0 0 2-2v-.411C17.928 5.778 20 8.65 20 12a7.947 7.947 0 0 1-1.67 4.873z"></path></svg>
+                                    </div>
+                                    <div xif="newPostVisibility=='private'">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7c0-2.757-2.243-5-5-5zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7zm4 10.723V20h-2v-2.277a1.993 1.993 0 0 1 .567-3.677A2.001 2.001 0 0 1 14 16a1.99 1.99 0 0 1-1 1.723z"></path></svg>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                </div>
+                              </div>
+                      </div>
+
+
+
                       <div class="field">
-                          <textarea id="newPostBody" class="create-new-post" rows="8" cols="80"></textarea>
+                          <textarea id="newPostBody" class="create-new-post" rows="4" cols="80"></textarea>
                       </div>
                       <div class="field flex create-post-cta">
                           <button xclick="saveNewPost()" type="button" class="button is-primary" name="button">Save</button>
@@ -128,7 +196,7 @@
     </section>
     <script type="text/javascript">
 
-        app.scope('profile',function($scope,requester,url,grootSvc,$patch,$disable){
+        app.scope('profile',function($scope,requester,url,grootSvc,$patch,$disable,$hide){
             $scope.requester = {
                 name: requester.getName(),
                 profilePhoto: requester.getPhoto(),
@@ -138,11 +206,34 @@
             $scope.isOwnView = false;
             $scope.newPostContent = "What's on your mind?";
             $scope.newPostPending = false;
+            $scope.newPostVisibility = 'public';
+            $scope.newPostImage = null;
             $scope.hasCreatedPost=function(){
                 if (!$scope.newPostPending) {
                     return 'with-placeholder';
                 }
                 return '';
+            }
+            $scope.changeVisibility=function(){
+              $patch('visibilityIcon');
+            }
+
+            $scope.uploadPostPhoto=function(){
+                var fd = new FormData();
+                fd.append('myFile',$('#file-upload-handle')[0].files[0]);
+                $.ajax({
+                  url: 'http://127.0.0.1:8000/push',
+                  method: 'POST',
+                  data: fd,
+                  processData: false,
+                  contentType: false,
+                  success:function(response){
+                    $scope.newPostImage = response.path;
+                    $patch('newPhotoPreviewer');
+                    $hide('imageUploader');
+                  }
+                });
+
             }
 
             $scope.viewPost=function(postId){
@@ -192,7 +283,8 @@
                         token: requester.getToken(),
                         postTitle: '',
                         postBody: pendingContent,
-                        visibility: 'public'
+                        visibility: $scope.newPostVisibility,
+                        photo: $scope.newPostImage
                     }),
                     success:function(response){
                         location.reload();

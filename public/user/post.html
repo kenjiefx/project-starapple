@@ -44,6 +44,11 @@
                                     <div class="post-card-body">
                                         {{post.body}}
                                     </div>
+                                    <div xif="post.src!==null">
+                                      <div class="post-single-image-container">
+                                        {{renderImage(post.src)}}
+                                      </div>
+                                    </div>
                                     <div class="flex ac">
                                         <div class="post-card-bottomline-single-left">
                                             <div class="post-card-bottomline flex">
@@ -189,6 +194,10 @@
                 score: 0,
                 hasError: false
             };
+
+            $scope.post = {
+              src: null
+            }
 
             let postId = url.get('id');
 
@@ -362,6 +371,12 @@
                     return '0.0';
                 }
                 return average.toFixed(2);
+            }
+            $scope.renderImage=function(src){
+              if (src==null||src==undefined) {
+                return '';
+              }
+              return '<img src="'+src+'" alt="" style="width: 100%;">';
             }
         });
     </script>
