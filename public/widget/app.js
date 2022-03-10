@@ -3,7 +3,7 @@ strawberry.create("app", function () {
     $(".loading").fadeOut();
     $("#loader").html("");
     $("#main").fadeIn();
-  }, 2000);
+  },2000);
 });
 
 app.factory('grootSvc',function(){

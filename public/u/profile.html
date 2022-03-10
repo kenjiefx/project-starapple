@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/widget/widget.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/app.js"></script>
+  </head>
+  <body>
+    <section id="loader">
+      <div class="loading">
+        <img id="spinner" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+      </div>
+    </section>
+    <section xscope="profileScope" id="main">
+      {{presets.icons.stars.full}}
+      <button xclick="modalCtrl.open('test')"  type="button" name="button">Open Modal</button>
+      <section xpatch="modalCtrl" id="modals">
+          <button xclick="modalCtrl.close()" class="delete"></button>
+          <div class="modal-content">
+            <div xif="modalCtrl.view=='test'">
+              <div xcomponent="components.deletePost"></div>
+            </div>
+          </div>
+      </section>
+    </section>
+    <script type="text/javascript">
+      app.scope('profileScope',['requester','components'],function($scope,modalCtrl,presets){
+        $scope.requester.signOut();
+        $scope.modalCtrl = modalCtrl;
+        $scope.presets = presets;
+      });
+    </script>
+  </body>
+</html>
