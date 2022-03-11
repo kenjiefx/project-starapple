@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="/widget/widget.css">
+    <link rel="stylesheet" href="/lib/theme-v1.0.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
@@ -19,7 +19,20 @@
       </div>
     </section>
     <section xscope="profileScope" id="main">
-      {{presets.icons.stars.full}}
+      <main class="Layout with-header win hin">
+        <header xcomponent="components.header"></header>
+        <div class="fx win hin">
+          <div class="page left">
+            <div xcomponent="components.profileCard"></div>
+          </div>
+          <div class="page middle">
+            
+          </div>
+          <div class="page right">
+            asdasdasdasd
+          </div>
+        </div>
+      </main>
       <button xclick="modalCtrl.open('test')"  type="button" name="button">Open Modal</button>
       <section xpatch="modalCtrl" id="modals">
           <button xclick="modalCtrl.close()" class="delete"></button>
@@ -31,10 +44,16 @@
       </section>
     </section>
     <script type="text/javascript">
-      app.scope('profileScope',['requester','components'],function($scope,modalCtrl,presets){
-        $scope.requester.signOut();
+      app.scope('profileScope',['Requester','components'],function($scope,modalCtrl,presets,utilSvc,PostModel){
+        $scope.utils = utilSvc;
         $scope.modalCtrl = modalCtrl;
         $scope.presets = presets;
+        // $scope.post = new PostModel({
+        //   content: 'Hello world!'
+        // });
+        //console.log($scope.post);
+        console.log($scope.Requester);
+        console.log(utilSvc.queryParams.get('user'));
       });
     </script>
   </body>

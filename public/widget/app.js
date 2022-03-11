@@ -202,3 +202,12 @@ app.factory('url',function(){
         }
     }
 });
+
+app.factory('postModel',function(){
+  class PostModel {
+    constructor(post){
+      this.content = post.content;
+    }
+  }
+  return new PostModel;
+});

@@ -27,8 +27,9 @@ app.factory('presets',function(){
  */
 app.factory('components',function(){
   return {
-    deletePost:'/components/delete-post.htm',
-    header: '/components/header.htm'
+    deletePost:'/c/delete-post.htm',
+    header: '/c/header.htm',
+    profileCard:'/c/profile-card.htm'
   }
 });
 
@@ -41,8 +42,8 @@ app.factory('grootSvc',function(){
   }
 });
 
-app.factory('requester',function(presets){
-  class Requester {
+app.factory('Requester',function(presets){
+  class RequesterModel {
     constructor(){
       this.refresh();
     }
@@ -79,7 +80,7 @@ app.factory('requester',function(presets){
       }
     }
   }
-  return new Requester;
+  return new RequesterModel;
 });
 
 /**
@@ -108,4 +109,50 @@ app.service('modalCtrl',function($scope,$patch){
     }
   }
   return new ModalCtrl;
+});
+
+/**
+ * Utility Services
+ * @requires moment.js
+ */
+app.service('utilSvc',function(){
+  return {
+    pluralize:function(count,singular,plural){
+      if (count==1) return singular;
+      return plural;
+    },
+    date:{
+      format:function(date){
+        return moment(date).format('MMMM D, YYYY');
+      }
+    },
+    queryParams:{
+      get:function(key){
+        let name = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var regex = new RegExp("[\\?&]"+name+"=([^&#]*)");
+        var results = regex.exec(location.href);
+        return results == null ? null : results[1];
+      }
+    }
+  }
+});
+
+app.factory('PostModel',function(){
+  class PostModel {
+    constructor(post){
+      this.content = post.content;
+      this.createdAt = post.createdAt;
+      this.userId = post.userId;
+    }
+  }
+  return PostModel;
+});
+
+app.factory('UserModel',function(){
+  class UserModel {
+    constructor(user){
+
+    }
+  }
+  return UserModel;
 });
