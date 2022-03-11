@@ -4,14 +4,8 @@ body {background-color: white;}
 #loader #spinner {height: 35px;}
 #main {display: none;}
 
-/** Flex Box **/
-.fx {display:flex;}
-.fx.ac {align-items: center;}
-.fx.jc {justify-content: center;}
-.fx.dr {flex-direction: row;}
-.fx.dc {flex-direction: column;}
-.fx.drr {flex-direction: row-reverse;}
-.fx.dcr {flex-direction: column-reverse;}
+.rob {font-family:'Roboto';}
+
 
 /**Page Layout**/
 .Layout .page.left {
