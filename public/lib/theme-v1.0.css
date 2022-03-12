@@ -4,7 +4,8 @@ body {background-color: white;}
 #loader #spinner {height: 35px;}
 #main {display: none;}
 
-.rob {font-family:'Roboto';}
+.rob {font-family: 'Roboto', sans-serif;}
+.rub {font-family: 'Rubik', sans-serif;}
 
 
 /**Page Layout**/
@@ -50,3 +51,5 @@ body {background-color: white;}
 /** Inherits **/
 .hin {height:inherit;}
 .win {width:inherit;}
+
+.lin {line-height: 150% !important;}

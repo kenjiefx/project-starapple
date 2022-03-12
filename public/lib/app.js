@@ -22,6 +22,14 @@ app.factory('presets',function(){
   }
 });
 
+app.factory('grootSvc',function(){
+  return {
+    //root: 'https://grootsvcapis.com/api/',
+    root:'http://localhost/api/',
+    publicKey: 'm3Ne22u7es3uT7p5az8S2PUNnX3KDw'
+  }
+});
+
 /**
  * Register all your app components here
  */
@@ -155,4 +163,18 @@ app.factory('UserModel',function(){
     }
   }
   return UserModel;
+});
+
+app.service('pageSvc',function($scope,$patch){
+  return {
+    errors: {
+      has:false,
+      message: '',
+      show:function(message){
+        $scope.pageSvc.errors.has = true;
+        $scope.pageSvc.errors.message = message;
+        $patch('pageError');
+      }
+    }
+  }
 });

@@ -32,26 +32,26 @@
 
 
 @media only screen and (max-width: 480px) and (min-width: 1px){
-.f1 {font-size: 7.893px; line-height: 0px;}
-.f2 {font-size: 9.238px; line-height: 0px;}
-.f3 {font-size: 10.583px; line-height: 0px;}
-.f4 {font-size: 11.928px; line-height: 0px;}
-.f5 {font-size: 13.273px; line-height: 0px;}
-.f6 {font-size: 14.618px; line-height: 0px;}
-.f7 {font-size: 15.963px; line-height: 0px;}
-.f8 {font-size: 17.308px; line-height: 0px;}
-.f9 {font-size: 18.653px; line-height: 0px;}
-.f10 {font-size: 19.998px; line-height: 0px;}
-.f11 {font-size: 21.343px; line-height: 0px;}
-.f12 {font-size: 22.688px; line-height: 0px;}
-.f13 {font-size: 24.033px; line-height: 0px;}
-.f14 {font-size: 25.378px; line-height: 0px;}
-.f15 {font-size: 26.723px; line-height: 0px;}
-.f16 {font-size: 28.068px; line-height: 0px;}
-.f17 {font-size: 29.413px; line-height: 0px;}
-.f18 {font-size: 30.758px; line-height: 0px;}
-.f19 {font-size: 32.103px; line-height: 0px;}
-.f20 {font-size: 33.448px; line-height: 0px;}
+.f1 {font-size: 7.893px; line-height: 90%;}
+.f2 {font-size: 9.238px; line-height: 90%;}
+.f3 {font-size: 10.583px; line-height: 90%;}
+.f4 {font-size: 11.928px; line-height: 90%;}
+.f5 {font-size: 13.273px; line-height: 90%;}
+.f6 {font-size: 14.618px; line-height: 90%;}
+.f7 {font-size: 15.963px; line-height: 90%;}
+.f8 {font-size: 17.308px; line-height: 90%;}
+.f9 {font-size: 18.653px; line-height: 90%;}
+.f10 {font-size: 19.998px; line-height: 90%;}
+.f11 {font-size: 21.343px; line-height: 90%;}
+.f12 {font-size: 22.688px; line-height: 90%;}
+.f13 {font-size: 24.033px; line-height: 90%;}
+.f14 {font-size: 25.378px; line-height: 90%;}
+.f15 {font-size: 26.723px; line-height: 90%;}
+.f16 {font-size: 28.068px; line-height: 90%;}
+.f17 {font-size: 29.413px; line-height: 90%;}
+.f18 {font-size: 30.758px; line-height: 90%;}
+.f19 {font-size: 32.103px; line-height: 90%;}
+.f20 {font-size: 33.448px; line-height: 90%;}
 .p1 {padding: 2.893px;}
 .p2 {padding: 4.278px;}
 .p3 {padding: 5.663px;}
@@ -335,26 +335,26 @@
 }
 
 @media only screen and (max-width: 769px) and (min-width: 481px){
-.f1 {font-size: 8.059px; line-height: 0px;}
-.f2 {font-size: 9.404px; line-height: 0px;}
-.f3 {font-size: 10.749px; line-height: 0px;}
-.f4 {font-size: 12.094px; line-height: 0px;}
-.f5 {font-size: 13.439px; line-height: 0px;}
-.f6 {font-size: 14.784px; line-height: 0px;}
-.f7 {font-size: 16.129px; line-height: 0px;}
-.f8 {font-size: 17.474px; line-height: 0px;}
-.f9 {font-size: 18.819px; line-height: 0px;}
-.f10 {font-size: 20.164px; line-height: 0px;}
-.f11 {font-size: 21.509px; line-height: 0px;}
-.f12 {font-size: 22.854px; line-height: 0px;}
-.f13 {font-size: 24.199px; line-height: 0px;}
-.f14 {font-size: 25.544px; line-height: 0px;}
-.f15 {font-size: 26.889px; line-height: 0px;}
-.f16 {font-size: 28.234px; line-height: 0px;}
-.f17 {font-size: 29.579px; line-height: 0px;}
-.f18 {font-size: 30.924px; line-height: 0px;}
-.f19 {font-size: 32.269px; line-height: 0px;}
-.f20 {font-size: 33.614px; line-height: 0px;}
+.f1 {font-size: 8.059px; line-height: 90%;}
+.f2 {font-size: 9.404px; line-height: 90%;}
+.f3 {font-size: 10.749px; line-height: 90%;}
+.f4 {font-size: 12.094px; line-height: 90%;}
+.f5 {font-size: 13.439px; line-height: 90%;}
+.f6 {font-size: 14.784px; line-height: 90%;}
+.f7 {font-size: 16.129px; line-height: 90%;}
+.f8 {font-size: 17.474px; line-height: 90%;}
+.f9 {font-size: 18.819px; line-height: 90%;}
+.f10 {font-size: 20.164px; line-height: 90%;}
+.f11 {font-size: 21.509px; line-height: 90%;}
+.f12 {font-size: 22.854px; line-height: 90%;}
+.f13 {font-size: 24.199px; line-height: 90%;}
+.f14 {font-size: 25.544px; line-height: 90%;}
+.f15 {font-size: 26.889px; line-height: 90%;}
+.f16 {font-size: 28.234px; line-height: 90%;}
+.f17 {font-size: 29.579px; line-height: 90%;}
+.f18 {font-size: 30.924px; line-height: 90%;}
+.f19 {font-size: 32.269px; line-height: 90%;}
+.f20 {font-size: 33.614px; line-height: 90%;}
 .p1 {padding: 3.712px;}
 .p2 {padding: 5.097px;}
 .p3 {padding: 6.482px;}
@@ -638,26 +638,26 @@
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 770px){
-.f1 {font-size: 8.228px; line-height: 0px;}
-.f2 {font-size: 9.573px; line-height: 0px;}
-.f3 {font-size: 10.918px; line-height: 0px;}
-.f4 {font-size: 12.263px; line-height: 0px;}
-.f5 {font-size: 13.608px; line-height: 0px;}
-.f6 {font-size: 14.953px; line-height: 0px;}
-.f7 {font-size: 16.298px; line-height: 0px;}
-.f8 {font-size: 17.643px; line-height: 0px;}
-.f9 {font-size: 18.988px; line-height: 0px;}
-.f10 {font-size: 20.333px; line-height: 0px;}
-.f11 {font-size: 21.678px; line-height: 0px;}
-.f12 {font-size: 23.023px; line-height: 0px;}
-.f13 {font-size: 24.368px; line-height: 0px;}
-.f14 {font-size: 25.713px; line-height: 0px;}
-.f15 {font-size: 27.058px; line-height: 0px;}
-.f16 {font-size: 28.403px; line-height: 0px;}
-.f17 {font-size: 29.748px; line-height: 0px;}
-.f18 {font-size: 31.093px; line-height: 0px;}
-.f19 {font-size: 32.438px; line-height: 0px;}
-.f20 {font-size: 33.783px; line-height: 0px;}
+.f1 {font-size: 8.228px; line-height: 90%;}
+.f2 {font-size: 9.573px; line-height: 90%;}
+.f3 {font-size: 10.918px; line-height: 90%;}
+.f4 {font-size: 12.263px; line-height: 90%;}
+.f5 {font-size: 13.608px; line-height: 90%;}
+.f6 {font-size: 14.953px; line-height: 90%;}
+.f7 {font-size: 16.298px; line-height: 90%;}
+.f8 {font-size: 17.643px; line-height: 90%;}
+.f9 {font-size: 18.988px; line-height: 90%;}
+.f10 {font-size: 20.333px; line-height: 90%;}
+.f11 {font-size: 21.678px; line-height: 90%;}
+.f12 {font-size: 23.023px; line-height: 90%;}
+.f13 {font-size: 24.368px; line-height: 90%;}
+.f14 {font-size: 25.713px; line-height: 90%;}
+.f15 {font-size: 27.058px; line-height: 90%;}
+.f16 {font-size: 28.403px; line-height: 90%;}
+.f17 {font-size: 29.748px; line-height: 90%;}
+.f18 {font-size: 31.093px; line-height: 90%;}
+.f19 {font-size: 32.438px; line-height: 90%;}
+.f20 {font-size: 33.783px; line-height: 90%;}
 .p1 {padding: 4.762px;}
 .p2 {padding: 6.147px;}
 .p3 {padding: 7.532px;}
@@ -941,26 +941,26 @@
 }
 
 @media only screen and (max-width: 1200px) and (min-width: 1025px){
-.f1 {font-size: 8.401px; line-height: 0px;}
-.f2 {font-size: 9.746px; line-height: 0px;}
-.f3 {font-size: 11.091px; line-height: 0px;}
-.f4 {font-size: 12.436px; line-height: 0px;}
-.f5 {font-size: 13.781px; line-height: 0px;}
-.f6 {font-size: 15.126px; line-height: 0px;}
-.f7 {font-size: 16.471px; line-height: 0px;}
-.f8 {font-size: 17.816px; line-height: 0px;}
-.f9 {font-size: 19.161px; line-height: 0px;}
-.f10 {font-size: 20.506px; line-height: 0px;}
-.f11 {font-size: 21.851px; line-height: 0px;}
-.f12 {font-size: 23.196px; line-height: 0px;}
-.f13 {font-size: 24.541px; line-height: 0px;}
-.f14 {font-size: 25.886px; line-height: 0px;}
-.f15 {font-size: 27.231px; line-height: 0px;}
-.f16 {font-size: 28.576px; line-height: 0px;}
-.f17 {font-size: 29.921px; line-height: 0px;}
-.f18 {font-size: 31.266px; line-height: 0px;}
-.f19 {font-size: 32.611px; line-height: 0px;}
-.f20 {font-size: 33.956px; line-height: 0px;}
+.f1 {font-size: 8.401px; line-height: 90%;}
+.f2 {font-size: 9.746px; line-height: 90%;}
+.f3 {font-size: 11.091px; line-height: 90%;}
+.f4 {font-size: 12.436px; line-height: 90%;}
+.f5 {font-size: 13.781px; line-height: 90%;}
+.f6 {font-size: 15.126px; line-height: 90%;}
+.f7 {font-size: 16.471px; line-height: 90%;}
+.f8 {font-size: 17.816px; line-height: 90%;}
+.f9 {font-size: 19.161px; line-height: 90%;}
+.f10 {font-size: 20.506px; line-height: 90%;}
+.f11 {font-size: 21.851px; line-height: 90%;}
+.f12 {font-size: 23.196px; line-height: 90%;}
+.f13 {font-size: 24.541px; line-height: 90%;}
+.f14 {font-size: 25.886px; line-height: 90%;}
+.f15 {font-size: 27.231px; line-height: 90%;}
+.f16 {font-size: 28.576px; line-height: 90%;}
+.f17 {font-size: 29.921px; line-height: 90%;}
+.f18 {font-size: 31.266px; line-height: 90%;}
+.f19 {font-size: 32.611px; line-height: 90%;}
+.f20 {font-size: 33.956px; line-height: 90%;}
 .p1 {padding: 6.11px;}
 .p2 {padding: 7.495px;}
 .p3 {padding: 8.88px;}
@@ -1244,26 +1244,26 @@
 }
 
 @media only screen and (max-width: 2300px) and (min-width: 1201px){
-.f1 {font-size: 8.577px; line-height: 0px;}
-.f2 {font-size: 9.922px; line-height: 0px;}
-.f3 {font-size: 11.267px; line-height: 0px;}
-.f4 {font-size: 12.612px; line-height: 0px;}
-.f5 {font-size: 13.957px; line-height: 0px;}
-.f6 {font-size: 15.302px; line-height: 0px;}
-.f7 {font-size: 16.647px; line-height: 0px;}
-.f8 {font-size: 17.992px; line-height: 0px;}
-.f9 {font-size: 19.337px; line-height: 0px;}
-.f10 {font-size: 20.682px; line-height: 0px;}
-.f11 {font-size: 22.027px; line-height: 0px;}
-.f12 {font-size: 23.372px; line-height: 0px;}
-.f13 {font-size: 24.717px; line-height: 0px;}
-.f14 {font-size: 26.062px; line-height: 0px;}
-.f15 {font-size: 27.407px; line-height: 0px;}
-.f16 {font-size: 28.752px; line-height: 0px;}
-.f17 {font-size: 30.097px; line-height: 0px;}
-.f18 {font-size: 31.442px; line-height: 0px;}
-.f19 {font-size: 32.787px; line-height: 0px;}
-.f20 {font-size: 34.132px; line-height: 0px;}
+.f1 {font-size: 8.577px; line-height: 90%;}
+.f2 {font-size: 9.922px; line-height: 90%;}
+.f3 {font-size: 11.267px; line-height: 90%;}
+.f4 {font-size: 12.612px; line-height: 90%;}
+.f5 {font-size: 13.957px; line-height: 90%;}
+.f6 {font-size: 15.302px; line-height: 90%;}
+.f7 {font-size: 16.647px; line-height: 90%;}
+.f8 {font-size: 17.992px; line-height: 90%;}
+.f9 {font-size: 19.337px; line-height: 90%;}
+.f10 {font-size: 20.682px; line-height: 90%;}
+.f11 {font-size: 22.027px; line-height: 90%;}
+.f12 {font-size: 23.372px; line-height: 90%;}
+.f13 {font-size: 24.717px; line-height: 90%;}
+.f14 {font-size: 26.062px; line-height: 90%;}
+.f15 {font-size: 27.407px; line-height: 90%;}
+.f16 {font-size: 28.752px; line-height: 90%;}
+.f17 {font-size: 30.097px; line-height: 90%;}
+.f18 {font-size: 31.442px; line-height: 90%;}
+.f19 {font-size: 32.787px; line-height: 90%;}
+.f20 {font-size: 34.132px; line-height: 90%;}
 .p1 {padding: 7.839px;}
 .p2 {padding: 9.224px;}
 .p3 {padding: 10.609px;}

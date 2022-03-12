@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/lib/vintage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,22 +22,25 @@
     <section xscope="profileScope" id="main" class="hin">
       <main class="Layout with-header win hin">
         <header xcomponent="components.header"></header>
+        <div xpatch="pageError" id="pageError">
+          <div xif="pageSvc.errors.has==true">
+            <div class="w100 h99 fx ac jc p14 f7 rob lin">
+              {{pageSvc.errors.message}}
+            </div>
+          </div>
+        </div>
         <div class="fx w-inh h-inh">
           <div class="page left">
             <div xcomponent="components.profileCard"></div>
           </div>
           <div class="page middle">
-            <div class="card ptb8 plr12">
-              <div class="f7 mb11 fw10 rob">Hello</div>
-              <div class="f5">asdasdasd</div>
-            </div>
+
           </div>
           <div class="page right">
-            asdasdasdasd
+
           </div>
         </div>
       </main>
-      <button xclick="modalCtrl.open('test')"  type="button" name="button">Open Modal</button>
       <section xpatch="modalCtrl" id="modals">
           <button xclick="modalCtrl.close()" class="delete"></button>
           <div class="modal-content">
@@ -48,16 +51,36 @@
       </section>
     </section>
     <script type="text/javascript">
-      app.scope('profileScope',['Requester','components'],function($scope,modalCtrl,presets,utilSvc,PostModel){
+      app.scope('profileScope',['Requester','components'],function($scope,modalCtrl,presets,utilSvc,PostModel,grootSvc,pageSvc){
         $scope.utils = utilSvc;
         $scope.modalCtrl = modalCtrl;
         $scope.presets = presets;
-        // $scope.post = new PostModel({
-        //   content: 'Hello world!'
-        // });
-        //console.log($scope.post);
-        console.log($scope.Requester);
-        console.log(utilSvc.queryParams.get('user'));
+        $scope.pageSvc = pageSvc;
+
+        let username = utilSvc.queryParams.get('username');
+        if (null===username) username = $scope.Requester.username;
+
+        $.ajax({
+            method:'GET',
+            url:grootSvc.root+'v1/reviews/get/user?profile='+username+'&publickey='+grootSvc.publicKey+'&token='+$scope.Requester.token,
+            success:function(response){
+              console.log(response);
+              // $scope.user = response;
+              // if (response.profilePhoto===null) {
+              //     $scope.user.profilePhoto = '/images/empty-profile.png';
+              // }
+              // if (response.posts.list.length>0) {
+              //     $scope.hasPosts = true;
+              // } else {
+              //     $scope.hasPosts = false;
+              // }
+              $patch('userCard');
+              $patch('userPosts');
+            },
+            error:function(response){
+              pageSvc.errors.show("We couldn't find what you are looking for. That's all we know. 😕");
+            }
+        });
       });
     </script>
   </body>
