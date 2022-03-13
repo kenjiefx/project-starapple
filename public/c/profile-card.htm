@@ -1,0 +1,26 @@
+<div class="w100">
+    <div class="plr14 fx jc mb10">
+        <div class="ibg profileCard-photo" style="background:url('{{User.profilePhoto}}')"></div>
+    </div>
+    <div class="plr14 mb8">
+        <div class="f7 rob fx jc pName mb2">{{User.firstName}} {{User.lastName}}</div>
+        <div class="f5 rub fx jc">@{{User.username}}</div>
+    </div>
+    <div class="plr14 fx jc">
+        {{presets.icons.review}}
+    </div>
+</div>
+
+<style media="screen">
+    .profileCard-photo {
+        height: 150px;
+        width: 150px;
+        border-radius: 150px;
+    }
+
+    .pName {
+        font-weight: bold;
+        color: #0e0e0e;
+        letter-spacing: 0.4px;
+    }
+</style>

@@ -1,5 +1,6 @@
 body {
-  background-color: white;
+  /*background:url('https://images.unsplash.com/photo-1631409623102-c835e4b35275?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80');*/
+  background: white;
 }
 
 #loader .loading {
@@ -16,7 +17,17 @@ body {
 
 #main {
   display: none;
+  height: max-content;
 }
+
+/**
+background: rgb(255,255,255);
+    background: linear-gradient(
+280deg, rgba(255,255,255,1) 0%, rgb(255 242 201) 35%, rgb(227 202 171) 47%, rgb(163 249 221) 65%, rgb(215 251 182) 100%);
+
+background: linear-gradient(
+280deg, rgba(255,255,255,1) 0%, rgb(255 242 201) 35%, rgb(251 236 236) 47%, rgb(225 255 245) 65%, rgb(215 251 182) 100%);
+**/
 
 .flex {
   display: flex;
@@ -32,6 +43,12 @@ body {
 
 .jc {
   justify-content: center;
+}
+
+.icon-svg {
+    height: 18px;
+    width: 18px;
+    fill: #545454;
 }
 
 .h-inherit {
@@ -67,13 +84,12 @@ body {
 }
 
 main.with-header {
-    margin-top: 75px;
+
 }
 
 .standard-layout {
     display: flex;
     width: 100%;
-    height: 100%;
     max-width: 1300px;
     margin: auto;
 }
@@ -89,6 +105,68 @@ main.with-header {
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 40px;
+}
+
+.profile-card-sticky {
+  position: sticky;
+  top: 0;
+}
+
+.profile-card-username {
+  margin-top: -10px;
+  color: #323232;
+  font-family: 'Rubik';
+  font-weight: 300;
+  border-bottom-style: solid;
+  padding-bottom: 8px;
+  border-bottom-width: 1px;
+  width: 100%;
+  border-bottom-color: #f3f3f3;
+}
+
+.profile-card-ave {
+    margin-left: 5px;
+    margin-top: 1px;
+}
+
+.profile-card-total-review {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border-bottom-style: solid;
+  padding-bottom: 10px;
+  border-bottom-width: 1px;
+  border-bottom-color: #f3f3f3;
+}
+
+.profile-card-socials {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.socials-link {
+  margin-left: 12px;
+  font-family: 'Rubik';
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgb(29, 155, 240);
+}
+
+.socials-logo {
+  width: 35px;
+  margin-right: 8px;
+}
+
+.profile-card-total-review-metric {
+  margin-left:10px;
+  margin-top:-1px;
+}
+
+.profile-card-bottomline {
+  margin-bottom: -14px !important;
+  display: flex;
 }
 
 .standard-layout > .middle {
@@ -116,10 +194,12 @@ main.with-header {
     margin-bottom: 18px;
 }
 .profile-menu .item:hover {
-    color: #673ab7;
+    color: #00947e;
 }
 .profile-name-wrapper {
     margin-top: 18px;
+    margin-bottom: 8px;
+    width: 100%;
 }
 .profile-menu .icon {
     margin-left: 25px;
@@ -132,14 +212,14 @@ a.normal-link:visited {
     color: #282828 !important;
 }
 a.normal-link:hover {
-    color: #673ab7 !important;
+    color: #00947e !important;
 }
 
 .s-title {
-    font-size: 16.5px;
-    letter-spacing: 0.1px;
-    color: #282828;
-    font-weight: 500;
+  font-size: 15.5px;
+  letter-spacing: 0.1px;
+  color: #282828;
+  font-weight: 600;
 }
 
 .s-name-title {
@@ -150,14 +230,16 @@ a.normal-link:hover {
 }
 
 .user-profile-photo {
-    width: 180px;
-    height: 180px;
+    width: 130px;
+    height: 130px;
     border-radius: 180px;
     background-color: #ffffff !important;
+    border: solid;
+    border-color: #00947e;
 }
 
 .single-post-container {
-    padding: 35px;
+    padding: 15px 35px;
     border-bottom: solid;
     border-bottom-color: whitesmoke;
     border-bottom-width: 1px;
@@ -169,8 +251,8 @@ a.normal-link:hover {
 }
 
 .post-card-profile-photo {
-    height: 55px;
-    width: 55px;
+    height: 45px;
+    width: 45px;
     border-radius: 55px;
     box-shadow: rgb(0 0 0 / 3%) 0px 0px 2px inset;
 }
@@ -192,13 +274,32 @@ a.normal-link:hover {
 }
 
 .post-card-user-ratings {
-    margin-top: 4px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-card-user-star {
+  width: 18px;
+  margin-bottom: 15px;
+}
+
+.post-card-user-average {
+  font-size: 11px;
+  color: #b3b3b3;
 }
 
 .post-card-body {
-    font-family: 'Roboto';
-    font-size: 15.5px;
-    font-weight: 400;
+  font-family: 'Rubik';
+  font-size: 14.5px;
+  font-weight: 400;
+  color: #060606;
+  margin-top: 8px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #efefef;
+  padding-top: 10px;
 }
 
 .post-listing-image {
@@ -285,7 +386,7 @@ a.normal-link:hover {
 .post-section-title {
     font-size: 24px;
     font-weight: bold;
-    color: #b7b7b7;
+    color: #222222;
     font-family: 'Roboto';
 }
 
@@ -306,7 +407,7 @@ a.normal-link:hover {
 }
 
 .user-card {
-    margin-top: -90px;
+    margin-top: -80px;
 }
 
 .has-post-notif {
@@ -338,6 +439,7 @@ a.normal-link:hover {
 
 .create-post-wrapper {
     padding: 15px 35px;
+    margin-top: -20px;
 }
 
 .createPost.card {
@@ -354,7 +456,7 @@ textarea.create-new-post {
 }
 
 textarea.create-new-post:focus {
-    outline-color: #673ab7;
+    outline-color: #00947e;
     outline-width: 1px;
 }
 
@@ -448,7 +550,7 @@ textarea.create-new-post:focus {
 }
 
 .add-photo-button:hover {
-  background-color: #693cba;
+  background-color: #00947e;
   color: white;
 }
 
@@ -511,36 +613,36 @@ hr {
 }
 
 .button.is-primary {
-  background-color: #673ab7;
+  background-color: #00947e;
 }
 
 .button.is-primary.is-outlined {
     background-color: transparent;
-    border-color: #673ab7;
-    color: #673ab7;
+    border-color: #00947e;
+    color: #00947e;
 }
 
 .button.is-primary.is-outlined:hover {
-    background-color: #673ab7;
-    border-color: #673ab7;
+    background-color: #00947e;
+    border-color: #00947e;
 }
 
 .button.is-primary.is-outlined:focus {
-    background-color: #673ab7;
-    border-color: #673ab7;
+    background-color: #00947e;
+    border-color: #00947e;
 }
 
 .button.is-primary.is-outlined:active {
-    background-color: #673ab7;
-    border-color: #673ab7;
+    background-color: #00947e;
+    border-color: #00947e;
 }
 
 .button.is-primary[disabled], fieldset[disabled] .button.is-primary {
-    background-color: #673ab7;
+    background-color: #00947e;
 }
 
 .button.is-primary:hover {
-  background-color: #673ab7;
+  background-color: #00947e;
 }
 
 .button.is-primary.is-focused:not(:active), .button.is-primary:focus:not(:active) {

@@ -24,12 +24,12 @@
         <header xcomponent="components.header"></header>
         <div xpatch="pageError" id="pageError">
           <div xif="pageSvc.errors.has==true">
-            <div class="w100 h99 fx ac jc p14 f7 rob lin">
+            <div class="w100 h99 fx ac jc p14 f5 rob lin">
               {{pageSvc.errors.message}}
             </div>
           </div>
         </div>
-        <div class="fx w-inh h-inh">
+        <div class="main-page fx w-inh h-inh">
           <div class="page left">
             <div xcomponent="components.profileCard"></div>
           </div>
@@ -51,20 +51,22 @@
       </section>
     </section>
     <script type="text/javascript">
-      app.scope('profileScope',['Requester','components'],function($scope,modalCtrl,presets,utilSvc,PostModel,grootSvc,pageSvc){
+      app.scope('profileScope',['Requester','components','presets'],function($scope,modalCtrl,presets,utilSvc,PostModel,grootSvc,pageSvc,UserModel){
         $scope.utils = utilSvc;
         $scope.modalCtrl = modalCtrl;
         $scope.presets = presets;
         $scope.pageSvc = pageSvc;
 
-        let username = utilSvc.queryParams.get('username');
+        let username = utilSvc.queryParams.get('user');
         if (null===username) username = $scope.Requester.username;
+
 
         $.ajax({
             method:'GET',
-            url:grootSvc.root+'v1/reviews/get/user?profile='+username+'&publickey='+grootSvc.publicKey+'&token='+$scope.Requester.token,
+            url:grootSvc.app.root+'v1/reviews/get/user?profile='+username+'&publickey='+grootSvc.publicKey+'&token='+$scope.Requester.token,
             success:function(response){
               console.log(response);
+              $scope.User = new UserModel(response);
               // $scope.user = response;
               // if (response.profilePhoto===null) {
               //     $scope.user.profilePhoto = '/images/empty-profile.png';
@@ -74,8 +76,8 @@
               // } else {
               //     $scope.hasPosts = false;
               // }
-              $patch('userCard');
-              $patch('userPosts');
+              // $patch('userCard');
+              // $patch('userPosts');
             },
             error:function(response){
               pageSvc.errors.show("We couldn't find what you are looking for. That's all we know. 😕");

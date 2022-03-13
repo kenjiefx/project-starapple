@@ -3,31 +3,48 @@
         <img class="user-cover-photo" src="https://picsum.photos/800/400">
     </div>
     <div class="user-card">
-        <div xif="user.profilePhoto==null">
+        <div xif="User.profilePhoto==null">
             <div class="user-profile-photo" style="background:url('/images/empty-profile.png');background-size: cover; background-position:center;"></div>
         </div>
-        <div xif="user.profilePhoto!==null">
-            <div class="user-profile-photo" style="background:url('{{user.profilePhoto}}');background-size: cover; background-position:center;"></div>
+        <div xif="User.profilePhoto!==null">
+            <div class="user-profile-photo" style="background:url('{{User.profilePhoto}}');background-size: cover; background-position:center;"></div>
         </div>
     </div>
-    <div class="flex jc profile-name-wrapper">
+    <div class="profile-card-bottomline w100 profile-name-wrapper profile-card-metric">
+        {{reviewSvc.generateStars(User.bottomLine.averageScore)}} <div class="profile-card-ave">({{reviewSvc.roundOff(User.bottomLine.averageScore)}})</div>
+    </div>
+    <div class="profile-name-wrapper">
         <div class="s-name-title">
-            {{user.firstName}} {{user.lastName}}
+            {{User.firstName}} {{User.lastName}}
         </div>
     </div>
-    <div class="flex jc">
-        @{{user.username}}
+    <div class="profile-card-username">
+        @{{User.username}}
     </div>
-    <div class="flex jc profile-name-wrapper">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M20 2H4c-1.103 0-2 .894-2 1.992v12.017C2 17.106 2.897 18 4 18h3v4l6.351-4H20c1.103 0 2-.894 2-1.992V3.992A1.998 1.998 0 0 0 20 2zm-9 8a2 2 0 1 1-2-2c.086 0 .167.015.25.025.082-.014.164-.025.25-.025A1.5 1.5 0 0 1 11 9.5c0 .086-.012.168-.025.25.01.083.025.165.025.25zm4 2a2 2 0 0 1-2-2c0-.086.015-.167.025-.25A1.592 1.592 0 0 1 13 9.5 1.5 1.5 0 0 1 14.5 8c.086 0 .168.011.25.025.083-.01.164-.025.25-.025a2 2 0 0 1 0 4z"></path></svg>
+    <div class="profile-card-total-review">
+        <div class="">
+          {{presets.icons.review}}
+        </div>
+        <div class="profile-card-metric profile-card-total-review-metric">
+          {{User.bottomLine.totalReviews}} Reviews
+        </div>
     </div>
-    <div class="flex jc">
-        {{user.bottomLine.totalReviews}} Reviews
-    </div>
-    <div class="flex jc profile-name-wrapper">
-        {{generateStars(user.bottomLine.averageScore)}}
-    </div>
-    <div class="flex jc">
-        {{roundOff(user.bottomLine.averageScore)}}
+    <div class="profile-card-socials">
+      <div class="flex ac">
+        <img class="facebook socials-logo" src="/images/facebook-icon.svg">
+        <img class="instagram socials-logo" src="/images/instagram-icon.svg">
+        <img class="twitter socials-logo" src="/images/twitter-icon.svg">
+      </div>
+      <br>
+      <div class="flex ac">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" style="fill:rgb(171 170 170);transform: ;msFilter:;"><path d="M8.465 11.293c1.133-1.133 3.109-1.133 4.242 0l.707.707 1.414-1.414-.707-.707c-.943-.944-2.199-1.465-3.535-1.465s-2.592.521-3.535 1.465L4.929 12a5.008 5.008 0 0 0 0 7.071 4.983 4.983 0 0 0 3.535 1.462A4.982 4.982 0 0 0 12 19.071l.707-.707-1.414-1.414-.707.707a3.007 3.007 0 0 1-4.243 0 3.005 3.005 0 0 1 0-4.243l2.122-2.121z"></path><path d="m12 4.929-.707.707 1.414 1.414.707-.707a3.007 3.007 0 0 1 4.243 0 3.005 3.005 0 0 1 0 4.243l-2.122 2.121c-1.133 1.133-3.109 1.133-4.242 0L10.586 12l-1.414 1.414.707.707c.943.944 2.199 1.465 3.535 1.465s2.592-.521 3.535-1.465L19.071 12a5.008 5.008 0 0 0 0-7.071 5.006 5.006 0 0 0-7.071 0z"></path></svg>
+        <div class="socials-link">
+          https://www.kenjieterrado.com/
+        </div>
+      </div>
     </div>
 </div>
+
+<style media="screen">
+  .profile-card-metric {font-family:'Rubik';font-size:13.5px;}
+</style>

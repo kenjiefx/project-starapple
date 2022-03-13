@@ -9,6 +9,10 @@ body {background-color: white;}
 
 
 /**Page Layout**/
+.Layout .main-page {
+    margin-top: 65px;
+}
+
 .Layout .page.left {
   width: 27%;
   border-right-width: 1px;
@@ -48,8 +52,19 @@ body {background-color: white;}
     height: inherit;
 }
 
+.icon-svg {
+    height: 21px;
+    width: 21px;
+    fill: #545454;
+}
+
+.ibg {background-size:cover!important;background-position:center!important;}
+
 /** Inherits **/
 .hin {height:inherit;}
 .win {width:inherit;}
 
 .lin {line-height: 150% !important;}
+
+
+.button {border-radius: 20px;}
