@@ -22,12 +22,12 @@
       <header xcomponent="'/components/header.htm'"></header>
       <div xpatch="pageError" id="pageError">
         <div xif="pageSvc.errors.has==true">
-          <div class="w100 h99 fx ac jc p14 f5 rob lin">
+          <div class="w-100 h-100 flex ac jc p14 f5 rob lin">
             {{pageSvc.errors.message}}
           </div>
         </div>
       </div>
-      <main class="with-header" class="h-inherit">
+      <main xshow="main" class="with-header" class="h-inherit">
         <div class="standard-layout h-inherit">
             <div class="left h-inherit">
                 <div class="profile-card-sticky" xcomponent="'/components/profile-card.htm'"></div>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="new-post-ctas flex">
-                          
+
                         </div>
                     </div>
                     <div xrepeat="User.posts.list as post" class="w-100">
@@ -97,7 +97,17 @@
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:#bfbfbf;transform: ;msFilter:;"><path d="m14.303 6-3-2H6V2H4v20h2v-8h4.697l3 2H20V6z"></path></svg>
                                         </div>
                                         <div xif="$parent.isOwnView==true">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" style="fill:#d9d9d9;transform: ;msFilter:;"><path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path></svg>
+                                          <div class="post-option-trigger" xclick="post.seeOptions()">
+                                            <svg class="post-options-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+                                            <div class="post-option-wrapper">
+                                              <div class="post-option-list">
+                                                <div class="fx ac post-option-item">
+                                                  <svg class="post-option-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" style="transform: ;msFilter:;"><path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path></svg>
+                                                  <div class="post-option-text">Delete Post</div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
                                         </div>
                                     </div>
                                 </div>
@@ -112,15 +122,36 @@
                 </div>
             </div>
             <div class="right">
-                <div class="profile-menu">
-                    <div class="item s-title">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M7.5 14.5c-1.58 0-2.903 1.06-3.337 2.5H2v2h2.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2H10.837c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5S9 17.173 9 18s-.673 1.5-1.5 1.5zm9-11c-1.58 0-2.903 1.06-3.337 2.5H2v2h11.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2h-2.163c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5z"></path><path d="M12.837 5C12.403 3.56 11.08 2.5 9.5 2.5S6.597 3.56 6.163 5H2v2h4.163C6.597 8.44 7.92 9.5 9.5 9.5s2.903-1.06 3.337-2.5h9.288V5h-9.288zM9.5 7.5C8.673 7.5 8 6.827 8 6s.673-1.5 1.5-1.5S11 5.173 11 6s-.673 1.5-1.5 1.5z"></path></svg>
-                        Account Settings
+                <div xif="Requester.status!=='offline'" class="w-100">
+                  <div xcomponent="components.accountOptions" class="profile-menu"></div>
+                </div>
+                <div xif="Requester.status=='offline'" class="w-100">
+                  <div class="w-100 login-card-pages">
+                    <div class="page title is-5 white">Sign In</div>
+                    <div class="subtitle is-7 white">Join the a community of reviewers and critiques</div>
+                    <hr class="spacer medium">
+                    <div class="subtitle is-7 white">Want to create an account? <strong>Sign up here</strong></div>
+                    <hr class="spacer medium">
+                    <div class="field">
+                      <div class="label-rg is-8 white">Username or Email</div>
+                      <input xmodel="forms.uemail" xchange="loginSvc.validate.uemail()" class="input" type="text" placeholder="Ex. joe1993 or joe@gmail.com">
                     </div>
-                    <div xclick="logout()" class="item s-title">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="m2 12 5 4v-3h9v-2H7V8z"></path><path d="M13.001 2.999a8.938 8.938 0 0 0-6.364 2.637L8.051 7.05c1.322-1.322 3.08-2.051 4.95-2.051s3.628.729 4.95 2.051 2.051 3.08 2.051 4.95-.729 3.628-2.051 4.95-3.08 2.051-4.95 2.051-3.628-.729-4.95-2.051l-1.414 1.414c1.699 1.7 3.959 2.637 6.364 2.637s4.665-.937 6.364-2.637c1.7-1.699 2.637-3.959 2.637-6.364s-.937-4.665-2.637-6.364a8.938 8.938 0 0 0-6.364-2.637z"></path></svg>
-                        Logout
+                    <div class="field">
+                      <div class="label-rg is-8 white">Password</div>
+                      <input xmodel="forms.password" class="input" type="password" placeholder="">
                     </div>
+                    <hr class="spacer medium">
+                    <div class="field flex footers">
+                      <div class="">
+                          <button xclick="loginSvc.submit()" class="button is-primary">Login</button>
+                      </div>
+                    </div>
+                    <div xpatch="formErrors" class="field">
+                        <div xif="forms.hasError==true">
+                          <div class="notification is-danger is-light"><button xclick="errorHandler.clear()" class="delete"></button>{{forms.errorMessage}}</div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -180,7 +211,7 @@
                                       Add Photo
                                     </span>
                                     <span class="file-icon-update">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill:#646464;transform: ;msFilter:;"><path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"></path><path d="m8 11-3 4h11l-4-6-3 4z"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
+                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="23" height="23" style="fill:#646464;transform: ;msFilter:;"><path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"></path><path d="m8 11-3 4h11l-4-6-3 4z"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
                                     </span>
                                   </span>
                                 </label>
@@ -205,13 +236,17 @@
     </section>
     <script type="text/javascript">
 
-        app.scope('profileScope',['Requester','components','presets'],function($scope,modalCtrl,presets,utilSvc,PostModel,grootSvc,pageSvc,UserModel,reviewSvc,$patch,$hide){
+        app.scope('profileScope',['Requester','components','presets'],function($scope,modalCtrl,presets,utilSvc,PostModel,grootSvc,pageSvc,UserModel,reviewSvc,$patch,$hide,loginSvc,errorHandler){
 
             $scope.utils = utilSvc;
             $scope.modalCtrl = modalCtrl;
             $scope.presets = presets;
             $scope.pageSvc = pageSvc;
             $scope.reviewSvc = reviewSvc;
+            $scope.forms = {};
+            $scope.checkpoint = {};
+            $scope.loginSvc = loginSvc;
+            $scope.errorHandler = errorHandler;
 
             $scope.post = new PostModel({
               token: $scope.Requester.token
@@ -240,6 +275,11 @@
                   $patch('userCard');
                 },
                 error:function(response){
+                  if (response.status===401) {
+                    $scope.Requester.signOut();
+                    location.reload();
+                    return;
+                  }
                   pageSvc.errors.show("We couldn't find what you are looking for. That's all we know. 😕");
                 }
             });

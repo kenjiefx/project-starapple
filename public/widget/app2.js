@@ -70,13 +70,13 @@ app.factory('requester',function(){
 app.service("errorHandler", function ($scope, $patch) {
   return {
     show: function (message) {
-      $scope.hasError = true;
-      $scope.errorMessage = message;
+      $scope.forms.hasError = true;
+      $scope.forms.errorMessage = message;
       $patch("formErrors");
     },
     clear: function () {
-      $scope.hasError = false;
-      $scope.errorMessage = "";
+      $scope.forms.hasError = false;
+      $scope.forms.errorMessage = "";
       $patch("formErrors");
     },
   };

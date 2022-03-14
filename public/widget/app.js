@@ -32,7 +32,8 @@ app.factory('components',function(){
   return {
     deletePost:'/c/delete-post.htm',
     header: '/c/header.htm',
-    profileCard:'/c/profile-card.htm'
+    profileCard:'/c/profile-card.htm',
+    accountOptions:'/components/account-options.htm'
   }
 });
 
@@ -144,6 +145,25 @@ app.service('utilSvc',function(){
   }
 });
 
+/**
+ * Error Handler Service
+ * @requires xpatch="formErrors" to display error
+ */
+app.service("errorHandler", function ($scope, $patch) {
+  return {
+    show: function (message) {
+      $scope.forms.hasError = true;
+      $scope.forms.errorMessage = message;
+      $patch("formErrors");
+    },
+    clear: function () {
+      $scope.forms.hasError = false;
+      $scope.forms.errorMessage = "";
+      $patch("formErrors");
+    },
+  };
+});
+
 app.service('PostModel',function($patch,grootSvc){
   class PostModel {
     constructor(post){
@@ -176,10 +196,13 @@ app.service('PostModel',function($patch,grootSvc){
           }
         });
       }
-
     }
     updateVisibility(){
       $patch('post.visibility.icon');
+    }
+    seeOptions(element){
+      //$('.post-option-wrapper').hide();
+      $(element.$element).children('.post-option-wrapper').fadeToggle();
     }
   }
   return PostModel;
@@ -200,7 +223,7 @@ app.factory('UserModel',function(){
   return UserModel;
 });
 
-app.service('pageSvc',function($scope,$patch){
+app.service('pageSvc',function($scope,$patch,$hide){
   return {
     errors: {
       has:false,
@@ -208,6 +231,7 @@ app.service('pageSvc',function($scope,$patch){
       show:function(message){
         $scope.pageSvc.errors.has = true;
         $scope.pageSvc.errors.message = message;
+        $hide('main');
         $patch('pageError');
       }
     }
@@ -256,6 +280,75 @@ app.service('reviewSvc',function(presets){
             averageInDecimal = average.toFixed(1);
         }
         return '<div class="post-card-star-icons">'+generator(average)+'</div><div class="post-card-ave-score">'+averageInDecimal+'</div>';
+    }
+  }
+});
+
+/**
+ * Login Service
+ * @requires $scope.errorHandler = errorHandler;
+ */
+app.service('loginSvc',function($scope,grootSvc,requester){
+  return {
+    submit:function(button){
+      button.addClass('is-loading');
+      if (!$scope.loginSvc.validate.uemail()) {
+        button.removeClass('is-loading');
+        return;
+      }
+      if (!$scope.loginSvc.validate.password()) {
+        button.removeClass('is-loading');
+        return;
+      }
+      let email = 'unknown@email.com';
+      let username = 'unknown';
+      if ($scope.forms.uemail.includes('@')) {
+          email = $scope.forms.uemail;
+      } else {
+          username = $scope.forms.uemail;
+      }
+      $.ajax({
+        method:'POST',
+        url:grootSvc.app.root+'v1/users/auth/local',
+        data: JSON.stringify({
+            publicKey:grootSvc.publicKey,
+            password: $scope.forms.password,
+            email: email,
+            username: username
+        }),
+        success:function(response){
+          $scope.Requester.set({
+            status: 'online',
+            name: response.user.firstName+' '+response.user.lastName,
+            token: response.token,
+            username: response.user.username,
+            photo: response.user.profilePhoto
+          });
+          location.href='/user/profile.html';
+        },
+        error:function(response){
+          $scope.errorHandler.show('Sorry, you provided invalid credentials.');
+          button.removeClass('is-loading');
+        }
+      });
+    },
+    validate:{
+      uemail:function(input){
+        $scope.errorHandler.clear();
+        if ($scope.forms.uemail.length<5){
+          $scope.errorHandler.show('Invalid username or email');
+          return false;
+        }
+        return true;
+      },
+      password:function(){
+        $scope.errorHandler.clear();
+        if ($scope.forms.password.length<1){
+          $scope.errorHandler.show('Password cannot be empty');
+          return false;
+        }
+        return true;
+      }
     }
   }
 });
