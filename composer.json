@@ -1,0 +1,20 @@
+{
+    "name": "kenjie/project-starapple",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kenjie\\ProjectStarapple\\": "lib/"
+        }
+    },
+    "authors": [
+        {
+            "name": "rterrado",
+            "email": "terrado.ken@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "kenjiefx/venta-css": "dev-main"
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "06f2d2977ca20edd5a519a0e09d73ec3",
+    "packages": [
+        {
+            "name": "kenjiefx/venta-css",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kenjiefx/venta-css.git",
+                "reference": "8e60e093c76efa874915102a5f251c75e2ad4bb2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kenjiefx/venta-css/zipball/8e60e093c76efa874915102a5f251c75e2ad4bb2",
+                "reference": "8e60e093c76efa874915102a5f251c75e2ad4bb2",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kenjiefx\\VentaCss\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "kenjiefx",
+                    "email": "terradoflex@gmail.com"
+                }
+            ],
+            "description": "Turns your lazy CSS writing into its minified version!",
+            "support": {
+                "issues": "https://github.com/kenjiefx/venta-css/issues",
+                "source": "https://github.com/kenjiefx/venta-css/tree/main"
+            },
+            "time": "2022-03-28T06:42:20+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "kenjiefx/venta-css": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
+}

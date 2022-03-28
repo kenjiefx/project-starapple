@@ -1,0 +1,153 @@
+* {margin:0;padding:0;box-sizing:border-box;}
+
+.loader-container .loading {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-container .loader-spinner {
+  height: 35px;
+}
+
+#main {
+  display: none;
+  height: max-content;
+}
+
+.flex {
+  display: flex;
+}
+
+.dir-col {
+  flex-direction: column;
+}
+
+.ac {
+  align-items: center;
+}
+
+.cb {
+  cursor: pointer;
+}
+
+.jc {
+  justify-content: center;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.hinherit {
+  height: inherit;
+}
+
+.h100 {
+  height: 99vh;
+}
+
+.hdevicefull {
+  height: 100vh;
+}
+
+.left-banner {
+  width: 50%;
+}
+
+.login-card-wrapper {
+  width: 50%;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.border-regular {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.rob {
+  font-family: 'Roboto';
+}
+
+.rub {
+  font-family: 'Rubik';
+}
+
+.link-primary:link {
+  text-decoration: none;
+  color: #2196f3;
+}
+
+.link-primary:hover {
+  text-decoration: underline !important;
+}
+
+.left-banner-image {
+  width: 100%;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #bbbbbb;
+  font-family: 'Rubik';
+  font-size: 14px;
+}
+
+.input-label {
+  font-family: 'Roboto';
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: #2e2d2d;
+  font-size: 14.3px;
+  letter-spacing: 0.1px;
+}
+
+.spacer-medium {
+  margin-top: 23px;
+}
+
+.login-title {
+  font-family: 'Roboto';
+  font-size: 31px;
+  overflow-wrap: break-word;
+  font-weight: bold;
+  color: #282828;
+  margin-bottom: 5px;
+}
+
+.login-desc {
+  font-family:'Rubik';
+  font-weight: 300;
+  font-size: 15.6px;
+  margin-bottom: 34px;
+  color: #606060;
+}
+
+.login-button-cont {
+  margin-top: 28px;
+}
+
+.primary-button {
+  border-style: none;
+  border-width: 1px;
+  padding: 12.5px 15px;
+  background-color: #2196f3;
+  color: white;
+  border-radius: 6px;
+  font-size: 16.5px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  font-family: 'Roboto';
+}
