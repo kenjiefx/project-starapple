@@ -31,7 +31,7 @@ app.factory('presets',function(){
 app.factory('components',function(){
   return {
     deletePost:'/c/delete-post.htm',
-    header: '/c/header.htm',
+    header: '/components/header.htm',
     profileCard:'/c/profile-card.htm',
     accountOptions:'/components/account-options.htm'
   }

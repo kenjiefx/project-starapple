@@ -1,0 +1,67 @@
+* {font-family:'Rubik';}
+
+.first-name {
+    font-family: 'Roboto';
+    font-size: 24px;
+}
+
+.last-name {
+    font-family: 'Roboto';
+    font-size: 18px;
+}
+
+.user-profile .photo {
+    width: 24px;
+    height: 24px;
+    background-color: #282828;
+    color: white;
+}
+
+.site-title {
+    font-family: 'Roboto';
+}
+
+.user-profile {
+    margin-left: 24px;
+}
+
+.link:hover {
+    color: blue;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.user-profile, .user-header {
+    padding: 20px;
+}
+
+.parent .child1 {
+    font-size: 32px;
+}
+
+.parent .child2 {
+    font-size: 45px;
+}
+
+.title {
+    font-family: 'Roboto';
+}
+
+.header-wrapper {
+    height: 24px;
+    width: 24px;
+}
+
+.header-container {
+    height: 24px;
+    width: 24px;
+    font-weight: 200;
+}
+
+.header-name {
+    height: 24px;
+    width: 24px;
+    font-family: 'Roboto';
+}

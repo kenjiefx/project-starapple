@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="/venta/app.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/widget/app.js"></script>
+  </head>
+  <body>
+    <section id="loader" class="loader-container">
+      <div class="loading">
+        <img class="loader-spinner" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+      </div>
+    </section>
+    <section xscope="profilePage" id="main" class="w100">
+      <main class="">
+        <header xcomponent="components.header"></header>
+      </main>
+    </section>
+    <script type="text/javascript">
+        app.scope('profilePage',['presets','components'],function($scope){
+
+        });
+    </script>
+  </body>
+</html>
