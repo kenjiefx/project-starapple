@@ -30,6 +30,9 @@ class VentaCli {
             case 'hook':
                 $config = new ConfigFacade($this->argv);
                 $config->create();
+                $reversion = new ReversionHandler($this->argv);
+                $reversion->pull();
+                CoutStreamer::cout('VentaCSS App build directory created!','success');
                 break;
             case 'revert':
                 $reversion = new ReversionHandler($this->argv);

@@ -2,21 +2,24 @@
 
 namespace Kenjiefx\VentaCss\Venta;
 use \Kenjiefx\VentaCss\Cli\CoutStreamer;
+use \Kenjiefx\VentaCss\Config\VentaConfigInitializer as Config;
 
 
 class Venta {
 
-    private string $namespace;
+    public string $namespace;
     private string $frontend;
     private string $backend;
+    private array $config;
 
     public function __construct(
-        string $namespace
+        string|null $namespace = null
         )
     {
-        $this->namespace = $namespace;
-        $this->frontend  = ROOT.'/'.$namespace;
-        $this->backend   = ROOT.'/vnt/'.$namespace;
+        $this->config = Config::load();
+        $this->namespace = $namespace ?? $this->config['namespace'];
+        $this->frontend  = ROOT.'/'.$this->namespace;
+        $this->backend   = ROOT.'/vnt/'.$this->namespace;
         $this->validate();
     }
 

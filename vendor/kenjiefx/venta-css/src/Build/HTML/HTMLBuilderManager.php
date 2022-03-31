@@ -25,10 +25,7 @@ class HTMLBuilderManager {
         $dirPath = null
         )
     {
-
         $dir = $dirPath ?? '/';
-        $this->getCompiledCss();
-
         FileSys::traverse($this->venta->getFrontend().$dir,function(
             $filePath,
             $fileName,
@@ -36,35 +33,23 @@ class HTMLBuilderManager {
             $closureArgs
         ){
             if ($fileExtension==='html'||$fileExtension==='htm'||$fileExtension==='php') {
-                require_once __dir__.'/simple_html_dom.php';
-                $dom = file_get_html($filePath);
-                $references = json_decode(file_get_contents($closureArgs['backEnd'].'/venta/__venta.css.json'),TRUE);
 
-                foreach ($references as $realName => $reference) {
-                    if ($reference['typeOf']==='universal'){
-                        $this->addToUsables($reference['html']);
-                        continue;
-                    }
-                    if ($reference['typeOf']==='element'){
-                        $this->addToUsables($reference['html']);
-                        continue;
-                    }
+                require_once __dir__.'/simple_html_dom.php';
+
+                $dom = file_get_html($filePath);
+                $References = json_decode(file_get_contents($closureArgs['backEnd'].'/venta/__venta.map.json'),TRUE);
+
+                foreach ($References as $realName => $reference) {
                     foreach($dom->find($realName) as $element) {
-                        if ($reference['typeOf']==='class') {
-                            $realName = substr($realName,1);
-                        }
-                        if ($reference['typeOf']==='id') {
-                            $realName = substr($realName,1);
-                        }
-                        $element->removeClass($realName);
-                        $element->addClass($reference['html']);
+                        $className = substr($realName,1);
+                        $element->removeClass($className);
+                        $element->addClass($reference);
                         $element->removeClass('1');
-                        $this->addToUsables($reference['html']);
+                        $this->addToUsables($reference);
                     }
                 }
 
                 $dom->save($filePath);
-
             }
 
             if ($fileExtension==='dir') {
@@ -73,43 +58,35 @@ class HTMLBuilderManager {
 
 
         },['frontEnd'=>$this->venta->getFrontend(),'backEnd'=>$this->venta->getBackend()]);
-
-
-    }
-
-    private function getCompiledCss()
-    {
-        $this->compiled = json_decode(file_get_contents($this->venta->getBackend().'/venta/__venta.map.json'),TRUE);
     }
 
     private function addToUsables(
         string $htmlRef
         )
     {
-        /**
-         * @TODO Create a way to only export css that has been used throughout the project
-         */
-        $refs = explode(' ',$htmlRef);
-        foreach ($refs as $ref) {
-            foreach ($this->compiled as $selector => $rules) {
-                if (str_contains($selector,$ref)) {
-                    $this->usables[$selector] = $rules;
-                }
-            }
-        }
+        $tokens = explode(' ',$htmlRef);
+        foreach ($tokens as $token)
+            if (!in_array($token,$this->usables))
+                array_push($this->usables,$token);
     }
 
     public function createAppCss()
     {
         $css = '';
-        foreach ($this->usables as $selector => $rules) {
-            $css = $css.$selector.'{';
-            foreach ($rules as $property => $value) {
-                $css = $css.$property.':'.$value.';';
+        $lookup = json_decode(file_get_contents($this->venta->getBackend().'/venta/__venta.css.json'),TRUE);
+        foreach ($this->usables as $htmlRef) {
+            if (isset($lookup[$htmlRef])) {
+                foreach ($lookup[$htmlRef]['css'] as $selector => $rules) {
+                    $css = $css.'.'.$selector.' {';
+                    foreach ($rules as $prop => $val) {
+                        $css = $css.$prop.':'.$val.';';
+                    }
+                    $css = $css.'} ';
+                }
             }
-            $css = $css.'} ';
         }
         file_put_contents($this->venta->getFrontend().'/venta/app.css',$css);
+
     }
 
 }

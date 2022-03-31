@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
     <link rel="stylesheet" href="/venta/app.css">
+    <link rel="stylesheet" href="/widget/widget.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,11 +13,11 @@
   </head>
   <body>
     <section id="loader" class="loader-container">
-      <div class="loading">
-        <img class="loader-spinner" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+      <div class="loading-container-wrapper">
+        <img class="loader-spinner-icon" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
       </div>
     </section>
-    <section xscope="page" id="main" class="w100">
+    <section xscope="login" id="main" class="w100">
       <main class="flex ac jc w100 hdevicefull">
         <div class="flex hinherit w100">
           <div class="left-banner hinherit">
@@ -25,7 +26,7 @@
           <div class="login-card-wrapper flex ac jc">
             <div class="login-card">
               <div class="login-title">
-                Login in to Sparklify
+                Login in to Starapple
               </div>
               <div class="login-desc">
                 Don't have an account? <a href="/register.html" class="link-primary">Register here.</a>
@@ -36,11 +37,13 @@
               <div class="input-label">Password</div>
               <input class="input" type="password" name="" value="" placeholder="••••••••••••••">
               <div class="login-button-cont">
-                <button class="primary-button" name="button">Login</button>
+                <button xclick="submit()" class="button is-primary" name="button">Login</button>
               </div>
               <div class="spacer-medium"></div>
-              <div class="">
-                  <div class="error-message">Sorry, your credetials are invalid.</div>
+              <div xpatch="formErrors">
+                  <div xif="hasError">
+                    <div class="error-message">{{forms.errorMessage}}</div>
+                  </div>
               </div>
             </div>
           </div>
@@ -48,8 +51,12 @@
       </main>
     </section>
     <script type="text/javascript">
-        app.scope('page',['presets'],function($scope){
-
+        app.scope('login',['presets'],function($scope,errorHandler){
+          $scope.forms = {};
+          $scope.submit=function(button){
+            button.addClass('is-loading');
+            errorHandler.show('Sorry, your credetials are invalid.');
+          }
         });
     </script>
   </body>

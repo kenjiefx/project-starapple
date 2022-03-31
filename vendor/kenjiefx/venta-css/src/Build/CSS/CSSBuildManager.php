@@ -8,6 +8,7 @@ use \Kenjiefx\VentaCss\Build\CSS\CSSModel;
 use \Kenjiefx\VentaCss\Build\CSS\ClassModel;
 use \Kenjiefx\VentaCss\Build\CSS\SelectorModel;
 use \Kenjiefx\VentaCss\Build\CSS\Utils;
+use \Kenjiefx\VentaCss\Build\CSS\SelectorMatcher as Matching;
 
 class CSSBuildManager {
 
@@ -15,7 +16,8 @@ class CSSBuildManager {
     private CSSModel $ParsedCSS;
     private CSSModel $RefinedCss;
     private string $css;
-    private array $registrar;
+    private array $theRegistrar;
+    private array $theTracker;
     private array $compiled;
     private array $reference;
 
@@ -26,9 +28,10 @@ class CSSBuildManager {
         $this->venta = $venta;
         $this->ParsedCSS = new CSSModel;
         $this->RefinedCss = new CSSModel;
-        $this->registrar = [];
-        $this->compiled = [];
-        $this->reference = [];
+        $this->theRegistrar = [];
+        $this->theTracker = [];
+        $this->theCompiled = [];
+        $this->theReference = [];
     }
 
     public function build()
@@ -49,12 +52,10 @@ class CSSBuildManager {
             $this->register($selector,$rules);
         }
 
-        //echo json_encode($this->registrar).PHP_EOL.PHP_EOL;
+
 
         CoutStreamer::cout('Compressing class names...');
         $this->reduce();
-
-        //echo json_encode($this->registrar).PHP_EOL.PHP_EOL;
         $this->sortRegistrar();
         $this->compile();
 
@@ -73,53 +74,9 @@ class CSSBuildManager {
         array $rules
         )
     {
-        # Parsing every selector entity in a group of selectors
-        $selectorGroups = explode(',',$selectorName);
-
-        foreach ($selectorGroups as $selectorGroup) {
-
-            # Parsing every selector entity in a family of selectors
-            $selectorFamily = explode(' ',trim($selectorGroup));
-
-            $parentOf = null;
-            $childOf = null;
-
-            $numberOfFamilyMember = count($selectorFamily);
-            $familyMemberIterator = 1;
-
-            /**
-             * Looping through each of the family members!
-             * We neen to make sure that in a certain CSS selector
-             * only the last child declared will receive the rules.
-             * Here, we also make sure that every family generation
-             * is registered in the registrar array
-             */
-            foreach ($selectorFamily as $selector) {
-
-                $selectorObj = new SelectorModel(trim($selector));
-                $selectorObj->minifyName($this->registrar);
-                $selectorObj->rules = [];
-
-                # Registering parent name and child name
-                if (null!==$childOf) {
-                    $selectorObj->childOf = new SelectorModel($childOf);
-                }
-
-                # Making sure that only the last child declared in the selector
-                # Will register the rules given to that selector
-                if ($familyMemberIterator===$numberOfFamilyMember) {
-                    $selectorObj->rules = $rules;
-                }
-
-                $childOf = trim($selector);
-
-                # Saving the Selector object to the Registrar array
-                $this->registrar[$selectorObj->minifiedName] = $selectorObj;
-
-                $familyMemberIterator++;
-
-            }
-        }
+        $selectorObj = new SelectorModel(trim($selectorName));
+        $selectorObj->rules = $rules;
+        array_push($this->theRegistrar,$selectorObj);
     }
 
     /**
@@ -128,75 +85,43 @@ class CSSBuildManager {
      * objects in the Registrar, this method will further reduce the Registrar
      * by eliminating literraly the same selector, but has different rules given
      *
-     * Sometimes, when we write CSS, we give different values to the same selectors
-     * in the following way:
-     *
-     * .element {margin: 12px;}
-     * .element1, h1 {font-size: 8px;}
-     *
-     * This method will further reduce the '.element' entries in the Registrar
-     * into one CONSOLIDATED registrar entry, like so:
-     * "exm":{"rules":{"margin":"12px";"font-size":"12px;""}}
      */
     public function reduce()
     {
-        $registrar = $this->registrar;
+        $TheRegistrar = $this->theRegistrar;
         $reduced = [];
-        foreach ($registrar as $AminifiedName => $AselectorObj) {
+
+        foreach ($TheRegistrar as $A) {
 
             /**
              * Before we save collate existing rules, we will check if the
              * same selector has already been recorded.
+             *
+             * The rules for two selectors to be considered as the same
+             * are the following
+             * 1. They must have the same pseudo type
              */
             $isExisting = false;
-            foreach ($reduced as $RminifiedName => $RselectorObj) {
-                if ($RselectorObj->realName===$AselectorObj->realName) {
-                    if ($RselectorObj->hasPseudo) {
-                        if (!$AselectorObj->hasPseudo) continue;
-                        if ($RselectorObj->pseudoClass!==$AselectorObj->pseudoClass) continue;
-                    }
-                    $isExisting = true;
-                    break;
-                }
+            $A->minifyName($this->theTracker);
+
+            foreach ($reduced as $key => $R) {
+                if (Matching::RealSelectorNames($A,$R))
+                    $A->setMinifiedName($R->minifiedName);
+                if (!Matching::RealSelectorNames($A,$R))
+                    continue;
+                if (!Matching::PseudoClassNames($A,$R))
+                    continue;
+                foreach ($A->rules as $property => $value)
+                    $reduced[$key]->rules[$property] = $value;
+                $isExisting = true;
+                break;
             }
 
-            if ($isExisting) continue;
-
-            $matchedRules = [];
-
-            /**
-             * On this part of the code, we collate all the existing rules
-             * given to the selector of the same name
-             */
-            foreach ($this->registrar as $BminifiedName => $BselectorObj) {
-                /**
-                 * @TODO: Need to consider pseudoclasses
-                 * We have updated the selector model to automatically
-                 * remove the pseudo class from the selector name,
-                 * hence the following comparison might not be always
-                 * true
-                 */
-                if ($AselectorObj->hasPseudo) {
-                  if (!$BselectorObj->hasPseudo) continue;
-                  if ($AselectorObj->pseudoClass!==$BselectorObj->pseudoClass) continue;
-                }
-                if ($AselectorObj->realName==$BselectorObj->realName) {
-                    foreach ($BselectorObj->rules as $property => $value) {
-                        # Recording each matching rules to consolidate later
-                        $matchedRules[$property] = $value;
-                    }
-                }
-
-            }
-
-            foreach ($matchedRules as $property => $value) {
-                $AselectorObj->rules[$property] = $value;
-            }
-
-            $reduced[$AminifiedName] = $AselectorObj;
+            if (!$isExisting)
+                array_push($reduced,$A);
         }
 
-        $this->registrar = $reduced;
+        $this->theRegistrar = $reduced;
 
     }
 
@@ -208,202 +133,89 @@ class CSSBuildManager {
     public function compile()
     {
 
-        /**
-         * Cases when we  do not include a certain selector in the Registry
-         * to our compilation:
-         */
-        $toCompile = true;
-
-        foreach ($this->registrar as $minifiedName => $selectorObj) {
-
-            $this->addReference(
-                $selectorObj->realName,
-                '',
-                $selectorObj->prefixer,
-                $selectorObj->typeOf
-            );
-
-            $matchingRules   = [];
-            $unMatchedRules  = $selectorObj->rules;
+        foreach ($this->theRegistrar as $A) {
             $hasMatchingRule = false;
 
+            foreach ($this->theCompiled as $key => $C) {
+                if (Matching::RealSelectorNames($A,$C))
+                    continue;
+                if (!Matching::HasPseudoSelectors($A,$C))
+                    continue;
+                if (!Matching::PseudoClassNames($A,$C))
+                    continue;
+                $matchCount = 0;
 
-            foreach ($this->compiled as $CminifiedName => $CselectorObj) {
-
-                /**
-                 * 1. We can only conclude if the rules has already existed in
-                 * our compiled dataset if their selectors are of the same time
-                 *
-                 * @example
-                 * h1 {font:size:10px;} CANNOT combine with .title{font-size:10px;}
-                 */
-                if ($CselectorObj->typeOf!==$selectorObj->typeOf) continue;
-
-                if ($CselectorObj->hasPseudo)
-                {
-                    if ($CselectorObj->pseudoClass!==$selectorObj->pseudoClass) continue;
-                }
-
-                if (null!==$CselectorObj->childOf&&null!==$selectorObj->childOf) {
-                    if ($CselectorObj->childOf->realName!==$selectorObj->childOf->realName) continue;
-                }
-
-
-                $matchingRulesCount = 0;
-
-
-                foreach ($selectorObj->rules as $property => $value) {
-                    $Cvalue = $CselectorObj->rules[$property] ?? null;
-                    if ($Cvalue===$value) {
-                        $hasMatchingRule = true;
-                        unset($unMatchedRules[$property]);
-                        $matchingRulesCount++;
+                foreach ($C->rules as $prop => $val) {
+                    if (isset($A->rules[$prop])) {
+                        if ($A->rules[$prop]===$val) {
+                            $A->rules[$prop] = null;
+                            $matchCount++;
+                        }
                     }
                 }
 
-
-                if ($hasMatchingRule) {
-
-                    /**
-                     * When the selector has exactly the same rules with
-                     * another selector, but they were given a different
-                     * selector name.
-                     *
-                     * We do not compile this to our final CSS, but we would
-                     * reference this in our reference dataset
-                     */
-                    if ($matchingRulesCount===count($CselectorObj->rules)) {
-                        # $this->reference[$selectorObj->realName] .= ' '.$CminifiedName;
-                        $this->addReference(
-                            $selectorObj->realName,
-                            $CminifiedName,
-                            $CselectorObj->prefixer,
-                            $CselectorObj->typeOf
-                        );
-                        $toCompile = false;
-                        continue;
-                    }
-
-                }
-            }
-
-            /**
-             * Every unmatched rules will be processed under a new selector name
-             * @example
-             * .wrapper {margin:10px}
-             * .container {margin:10px;padding:20px;}
-             *
-             * The unmatched rule, which is padding:20px, would be compiled
-             * into a separate selector, i.e.:
-             * .newSelector {padding:20px;}
-             *
-             */
-            if (count($unMatchedRules)>0&&$hasMatchingRule===true) {
-                $proxySelector = new SelectorModel($selectorObj->realName);
-                $proxySelector->minifyName($this->registrar);
-                $proxySelector->rules = $unMatchedRules;
-                $this->compiled[$proxySelector->minifiedName] = $proxySelector;
-                $this->addReference(
-                    $selectorObj->realName,
-                    $proxySelector->minifiedName,
-                    $proxySelector->prefixer,
-                    $proxySelector->typeOf
-                );
-            }
-
-            if (count($unMatchedRules)===0&&$hasMatchingRule===true) {
-                if ($this->reference[$selectorObj->realName]['html']==='') {
+                if (count($A->rules)===$matchCount) {
+                    $A->toRender     = false;
+                    $hasMatchingRule = true;
                     $this->addReference(
-                        $selectorObj->realName,
-                        $minifiedName,
-                        $selectorObj->prefixer,
-                        $selectorObj->typeOf
+                        realName: $A->realName,
+                        minifiedName: $C->minifiedName
                     );
-                    $this->compiled[$minifiedName] = $selectorObj;
+                    array_push($this->theCompiled,$A);
+                    break;
                 }
+
+                if ($matchCount>0)
+                    $this->addReference(
+                        realName: $A->realName,
+                        minifiedName: $C->minifiedName
+                    );
+
             }
 
-
-            if (!$hasMatchingRule) {
+            if(!$hasMatchingRule) {
                 $this->addReference(
-                    $selectorObj->realName,
-                    $minifiedName,
-                    $selectorObj->prefixer,
-                    $selectorObj->typeOf
+                    realName: $A->realName,
+                    minifiedName: $A->minifiedName
                 );
-                $this->compiled[$minifiedName] = $selectorObj;
+                array_push($this->theCompiled,$A);
             }
-
-
         }
+
     }
 
-    public function export()
-    {
-        $forExport = [];
-        foreach ($this->compiled as $minifiedName => $selectorObj) {
-            $minifiedName = $selectorObj->prefixer.$minifiedName;
-            if ($selectorObj->hasPseudo) {
-                $forExport[$minifiedName.$selectorObj->pseudoSeparator.$selectorObj->pseudoClass] = $selectorObj->rules;
-                continue;
-            }
-            if (null!==$selectorObj->childOf) {
-                $parentMinifiedName = $this->reference[$selectorObj->childOf->realName]['css'];
-                $forExport[$parentMinifiedName.' '.$minifiedName] = $selectorObj->rules;
-                continue;
-            }
-            if (empty($selectorObj->rules)) {
-                continue;
-            }
 
-            $forExport[$minifiedName] = $selectorObj->rules;
-        }
-        return $forExport;
-    }
 
 
     private function sortRegistrar()
     {
         $scraped = [];
         $sorted = [];
-        foreach ($this->registrar as $minifiedName => $selectorObj) {
-            $scraped[$minifiedName] = $selectorObj->rules;
+        foreach ($this->theRegistrar as $key => $Sobj) {
+            $scraped['x'.$key] = $Sobj->rules;
         }
         asort($scraped);
-        foreach ($scraped as $minifiedName => $value) {
-            $sorted[$minifiedName] = $this->registrar[$minifiedName];
+        foreach ($scraped as $key => $value) {
+            $rKey = intval(substr($key,1));
+            array_push($sorted,$this->theRegistrar[$rKey]);
         }
-        $this->registrar = $sorted;
+        $this->theRegistrar = $sorted;
     }
 
 
     public function addReference(
         string $realName,
-        string $minifiedName,
-        string $prefixer,
-        string $typeOf
+        string $minifiedName
         )
     {
-        if (!isset($this->reference[$realName])) {
-            $this->reference[$realName] = [
-                'html' => '',
-                'css' => '',
-                'typeOf' => ''
-            ];
+        $minifiedList = [];
+        if (isset($this->theReference[$realName])) {
+            $minifiedList = explode(' ',$this->theReference[$realName]);
         }
-        if ($this->reference[$realName]['html']=='') {
-            $this->reference[$realName] = [
-                'html' => $minifiedName,
-                'css' => $prefixer.$minifiedName,
-                'typeOf' => $typeOf
-            ];
-            return;
+        if (!in_array($minifiedName,$minifiedList)) {
+            array_push($minifiedList,$minifiedName);
         }
-        $this->reference[$realName] = [
-            'html' => $this->reference[$realName]['html'].' '.$minifiedName,
-            'css' => $this->reference[$realName]['css'].$prefixer.$minifiedName,
-            'typeOf' => $typeOf
-        ];
+        $this->theReference[$realName] = implode(' ',$minifiedList);
         return;
     }
 
@@ -412,16 +224,30 @@ class CSSBuildManager {
         return $this->references;
     }
 
+    public function export()
+    {
+        $exported = [];
+        foreach ($this->theCompiled as $selectorObj) {
+            $finalName = $selectorObj->minifiedName;
+            if ($selectorObj->hasPseudo)
+                $finalName .= $selectorObj->pseudoSeparator.$selectorObj->pseudoClass;
+            foreach ($selectorObj->rules as $prop => $val)
+                if (null!==$val)
+                    $exported[$selectorObj->minifiedName]['css'][$finalName][$prop] = $val;
+        }
+        return $exported;
+    }
+
     public function release()
     {
 
         file_put_contents(
             $this->venta->getBackend().'/venta/__venta.css.json',
-            json_encode($this->reference)
+            json_encode($this->export())
         );
         file_put_contents(
             $this->venta->getBackend().'/venta/__venta.map.json',
-            json_encode($this->export())
+            json_encode($this->theReference)
         );
     }
 

@@ -1,67 +1,78 @@
-* {font-family:'Rubik';}
-
-.first-name {
-    font-family: 'Roboto';
-    font-size: 24px;
+.link-primary:link {
+  text-decoration: none;
+  color: #2196f3;
 }
 
-.last-name {
-    font-family: 'Roboto';
-    font-size: 18px;
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.user-profile .photo {
-    width: 24px;
-    height: 24px;
-    background-color: #282828;
-    color: white;
-}
-
-.site-title {
-    font-family: 'Roboto';
-}
-
-.user-profile {
-    margin-left: 24px;
-}
-
-.link:hover {
-    color: blue;
-}
-
-h1 {
-    font-size: 24px;
-}
-
-.user-profile, .user-header {
-    padding: 20px;
-}
-
-.parent .child1 {
-    font-size: 32px;
-}
-
-.parent .child2 {
-    font-size: 45px;
+.link-primary:visited {
+  text-decoration: none;
+  color: #2196f3;
 }
 
 .title {
-    font-family: 'Roboto';
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: bold;
 }
 
-.header-wrapper {
-    height: 24px;
-    width: 24px;
+.subtitle {
+    font-family: Arial;
+    font-size: 12px;
 }
 
-.header-container {
-    height: 24px;
-    width: 24px;
-    font-weight: 200;
+.spacer {
+    margin-bottom: 12px;
 }
 
-.header-name {
-    height: 24px;
-    width: 24px;
-    font-family: 'Roboto';
+.link-primary:hover {
+  text-decoration: underline;
+  color: red;
+}
+
+.link-primary {
+  font-weight:bold;
+}
+
+.link-primary {
+  font-size: 11px;
+}
+
+.test {
+  display: flex;
+}
+
+.alive {
+    display: flex;
+}
+
+.wrapper {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.about {
+    letter-spacing: 1px;
+}
+
+.half {
+    font-weight:bold;
+}
+
+.test {
+  align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.rant {
+    display: flex;
+    font-weight: 50000;
 }

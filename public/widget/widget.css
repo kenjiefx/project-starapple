@@ -1,0 +1,82 @@
+* {margin:0;padding:0;box-sizing:border-box;}
+#main {
+  display: none;
+  height: max-content;
+}
+
+
+
+.button {
+  /* Important part */
+  position: relative;
+  border-style: none;
+  border-width: 1px;
+  padding: 12.5px 15px;
+  border-radius: 5px;
+  font-size: 16.5px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  font-family: 'Roboto';
+}
+
+.button.is-primary{
+  background-color: #2196f3;
+  color: white;
+}
+
+.button.is-loading {
+  color: transparent;
+}
+
+.button.is-loading.is-primary{
+  background-color: #2196f3c7;
+}
+
+.button.is-loading:after {
+  -webkit-animation: spinAround 500ms infinite linear;
+  animation: spinAround 500ms infinite linear;
+  border: 2.8px solid #dbdbdb;
+  border-radius: 9999px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 0.8em;
+  position: relative;
+  width: 0.8em;
+  position: absolute;
+  left: calc(50% - (1em * 0.54));
+  top: calc(50% - (1em * 0.54));
+  position: absolute !important;
+}
+
+@-webkit-keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.main-page--forum-left {
+  width: 40%;
+}
+
+.main-page--forum-right {
+  width: 60%;
+}
+
+.flex-on-desktop-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+}

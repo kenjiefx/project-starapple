@@ -47,6 +47,9 @@ class FileSys
         string $dirPath
         )
     {
+        if (!file_exists($dirPath)) {
+          return;
+        }
         $dirs = scandir($dirPath);
         foreach ($dirs as $dir) {
             if ($dir==='.'||$dir==='..')continue;

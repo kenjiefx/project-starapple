@@ -6,35 +6,51 @@ use \Kenjiefx\VentaCss\Build\ReversionHandler;
 
 class VentaConfigInitializer {
 
-  public static function run(
-    string $dir
-    )
-  {
-    $ventDir = ROOT.'/vnt';
-    if (!file_exists($ventDir)) {
-      CoutStreamer::cout('Initializing Venta CSS');
-      mkdir($ventDir);
-    }
-    $namespaceDir = $ventDir.'/'.$dir;
-    if (!file_exists($namespaceDir)) {
-      CoutStreamer::cout('Initializing /'.$dir.' namespace');
-      mkdir($namespaceDir);
-    }
-    Self::createApp($dir);
-    $reversionHandler = new ReversionHandler($dir);
-    $reversionHandler->pull();
-    CoutStreamer::cout('Successfully initialized /'.$dir.' namespace','success');
-  }
+    const CONFIG_PATH = '/venta.config.json';
 
-  private static function createApp(
-    string $dir
-    )
-  {
-    $appRoot = ROOT.'/'.$dir.'/venta';
-    if (!file_exists($appRoot)) {
-      mkdir($appRoot);
+    public static function hook (
+        string $dir
+        )
+    {
+        $path = ROOT.Self::CONFIG_PATH;
+        if (!file_exists($path)) 
+            Self::createApp($dir);
+
     }
-    file_put_contents($appRoot.'/app.css','');
-  }
+
+    public static function load()
+    {
+        $path = ROOT.Self::CONFIG_PATH;
+        try {
+            if (!file_exists($path)) {
+                throw new \Exception(
+                    'Unable to find venta.config.json'
+                );
+            }
+        } catch (\Exception $e) {
+            CoutStreamer::cout('Error: '.$e->getMessage(),'error');
+            exit();
+        }
+        return json_decode(file_get_contents($path),TRUE);
+    }
+
+    private static function createApp (
+        string $dir
+        )
+    {
+        $vntDir = ROOT.'/vnt';
+        $configPath = ROOT.'/venta.config.json';
+        if (!file_exists($vntDir))
+            mkdir($vntDir);
+        $dirDir = $vntDir.'/'.$dir;
+        if (!file_exists($dirDir))
+            mkdir($dirDir);
+        $config = [
+            'namespace'=>$dir,
+            'ignore'=>[],
+            'plugins'=>[]
+        ];
+        file_put_contents($configPath,json_encode($config));
+    }
 
 }

@@ -15,19 +15,8 @@ class ReversionHandler {
         array $argv
     )
     {
-        try {
-            if (!isset($argv[2])) {
-                throw new \Exception(
-                    'Revert command requires directory'
-                );
-            }
-        } catch (\Exception $e) {
-            CoutStreamer::cout("Error: {$e->getMessage()}",'error');
-            exit();
-        }
         $this->argv = $argv;
-        $this->namespace = $argv[2];
-        $this->venta = new Venta($this->namespace);
+        $this->venta = new Venta();
     }
 
         public function pull(
@@ -37,7 +26,7 @@ class ReversionHandler {
             $dir = $dirName ?? '/';
             try {
                 if (!file_exists($this->venta->getFrontend().$dir)) {
-                    throw new \Exception('Build directory /'.$this->namespace.' not found');
+                    throw new \Exception('Build directory /'.$this->venta->namespace.' not found');
                 }
             } catch (\Exception $e) {
                 CoutStreamer::cout('Error: '.$e->getMessage(),'error');
@@ -58,6 +47,9 @@ class ReversionHandler {
                     $puller = new ReversionHandler($this->argv);
                     $puller->pull('/'.$fileName);
                     return;
+                }
+                if (!file_exists($closureArgs['pullDir'].'/')) {
+                    mkdir($closureArgs['pullDir'].'/');
                 }
                 copy($filePath,$closureArgs['pullDir'].'/'.$fileName);
             },['pullDir'=>$pullDir]);

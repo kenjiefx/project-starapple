@@ -2,6 +2,7 @@
 
 namespace Kenjiefx\VentaCss\Build\CSS;
 use \Kenjiefx\VentaCss\Build\CSS\CSSModel;
+use \Kenjiefx\VentaCss\Cli\CoutStreamer;
 
 class Utils {
 
@@ -17,6 +18,37 @@ class Utils {
         foreach ($arr[0] as $i => $x) {
             # Registering a new css selector
             $selector = trim($arr[1][$i]);
+            try {
+                if (str_contains($selector,'*')) {
+                    throw new \Exception(
+                        'app.css cannot contain universal selectors: '.$selector
+                    );
+                }
+                if (str_contains($selector,'#')) {
+                    throw new \Exception(
+                        'app.css does not support id selectors: '.$selector
+                    );
+                }
+                if (str_contains($selector,' ')) {
+                    throw new \Exception(
+                        'app.css cannot contain combinator selectors '.$selector
+                    );
+                }
+                if (str_contains($selector,',')) {
+                    throw new \Exception(
+                        'app.css cannot contain group selectors '.$selector
+                    );
+                }
+                if (str_contains($selector,'[')) {
+                    throw new \Exception(
+                        'app.css cannot contain attribute selectors '.$selector
+                    );
+                }
+            } catch (\Exception $e) {
+                CoutStreamer::cout('ParseError: '.$e->getMessage(),'error');
+                exit();
+            }
+
             $css->createSelector($selector);
             $rules = explode(';', trim($arr[2][$i]));
 

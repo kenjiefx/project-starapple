@@ -8,17 +8,17 @@ use \Kenjiefx\VentaCss\Build\CSS\CSSBuildManager;
 
 class CSSBuilderFacade implements BuilderFacadeInterface{
 
-    private string $namespace;
+    private string|null $namespace;
     private Venta $venta;
     private CSSBuildManager $cssBuildManager;
 
     public function __construct(
-        string $namespace,
+        string|null $namespace,
         Venta $venta
         )
     {
-        $this->namespace = $namespace;
         $this->venta = $venta;
+        $this->namespace = $this->venta->namespace;
         $this->cssBuildManager = new CSSBuildManager($this->venta);
     }
 
@@ -27,7 +27,5 @@ class CSSBuilderFacade implements BuilderFacadeInterface{
         CoutStreamer::cout('Compressing venta/app.css...');
         $this->cssBuildManager->build();
     }
-
-
 
 }

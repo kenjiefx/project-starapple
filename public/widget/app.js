@@ -32,6 +32,7 @@ app.factory('components',function(){
   return {
     deletePost:'/c/delete-post.htm',
     header: '/components/header.htm',
+    project:'/components/project.htm',
     profileCard:'/c/profile-card.htm',
     accountOptions:'/components/account-options.htm'
   }

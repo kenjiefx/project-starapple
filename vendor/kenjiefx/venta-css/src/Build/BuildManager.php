@@ -10,7 +10,7 @@ use \Kenjiefx\VentaCss\Build\HTML\HTMLBuilderFacade;
 
 class BuildManager implements BuilderFacadeInterface {
 
-    private string $namespace;
+    private string|null $namespace;
     private CSSBuilderFacade $CSSBuilder;
     private int $startTime;
 
@@ -18,18 +18,8 @@ class BuildManager implements BuilderFacadeInterface {
         array $argv
         )
     {
-        try {
-            if (!isset($argv[2])) {
-                throw new \Exception(
-                    'Build command requires directory'
-                );
-            }
-        } catch (\Exception $e) {
-            CoutStreamer::cout("Error {$e->getMessage()}",'error');
-            exit();
-        }
         $this->startTime = microtime(true);
-        $this->namespace = $argv[2];
+        $this->namespace = $argv[2] ?? null;
         $this->loadTools();
     }
 
@@ -61,7 +51,7 @@ class BuildManager implements BuilderFacadeInterface {
 
         CoutStreamer::cout('Successfully compressed files!','success');
 
-        $newFileSize = FileSys::getSize(ROOT.'/'.$this->namespace.'/venta/app.css');
+        $newFileSize = FileSys::getSize($this->venta->getFrontend().'/venta/app.css');
         CoutStreamer::cout('Total build time: '.(microtime(true)-$timeStart).' seconds');
         CoutStreamer::cout('CSS reduced size from '.$originalFileSize.' → '.$newFileSize);
 

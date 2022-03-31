@@ -10,7 +10,6 @@ class CoutStreamer {
     )
   {
 
-
     $cheader = '';
     $cfooter = "\033[0m";
 

@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
     <link rel="stylesheet" href="/venta/app.css">
+    <link rel="stylesheet" href="/widget/widget.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,13 +13,27 @@
   </head>
   <body>
     <section id="loader" class="loader-container">
-      <div class="loading">
-        <img class="loader-spinner" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+      <div class="loading-container-wrapper">
+        <img class="loader-spinner-icon" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
       </div>
     </section>
     <section xscope="profilePage" id="main" class="w100">
       <main class="">
         <header xcomponent="components.header"></header>
+        <div class="main-page-content">
+          <div class="page-width">
+            <div class="flex-on-desktop-reverse">
+              <div class="main-page--forum-left">
+                <div xcomponent="components.project" class="w100"></div>
+              </div>
+              <div class="main-page--forum-right">
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </main>
     </section>
     <script type="text/javascript">

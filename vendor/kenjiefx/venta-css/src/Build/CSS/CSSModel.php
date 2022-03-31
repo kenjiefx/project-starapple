@@ -17,7 +17,9 @@ class CSSModel {
         string $selectorName
         )
     {
-        $this->css[$selectorName] = [];
+        if (!isset($this->css[$selectorName])) {
+            $this->css[$selectorName] = [];
+        }
         return $this;
     }
 
