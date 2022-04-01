@@ -7,15 +7,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kenjiefx/venta-css.git",
-                "reference": "8f9695623373f11d458003975ea8e92453708d0b"
+                "reference": "86fd028b2515592b0158dc4ddffef9fed051927e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kenjiefx/venta-css/zipball/8f9695623373f11d458003975ea8e92453708d0b",
-                "reference": "8f9695623373f11d458003975ea8e92453708d0b",
+                "url": "https://api.github.com/repos/kenjiefx/venta-css/zipball/86fd028b2515592b0158dc4ddffef9fed051927e",
+                "reference": "86fd028b2515592b0158dc4ddffef9fed051927e",
                 "shasum": ""
             },
-            "time": "2022-03-30T13:25:02+00:00",
+            "time": "2022-04-01T12:11:48+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",

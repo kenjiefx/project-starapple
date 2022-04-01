@@ -62,7 +62,7 @@ class CSSBuildManager {
         CoutStreamer::cout('Saving venta/app.css...');
         $this->release();
 
-        // echo json_encode($this->compiled).PHP_EOL.PHP_EOL;
+        // echo json_encode($this->Compiled).PHP_EOL.PHP_EOL;
         // echo json_encode($this->reference).PHP_EOL.PHP_EOL;
         // echo json_encode($this->export()).PHP_EOL.PHP_EOL;
 
@@ -132,7 +132,6 @@ class CSSBuildManager {
      */
     public function compile()
     {
-
         foreach ($this->theRegistrar as $A) {
             $hasMatchingRule = false;
 
@@ -145,16 +144,19 @@ class CSSBuildManager {
                     continue;
                 $matchCount = 0;
 
+                $propList = $A->rules;
+
                 foreach ($C->rules as $prop => $val) {
                     if (isset($A->rules[$prop])) {
                         if ($A->rules[$prop]===$val) {
-                            $A->rules[$prop] = null;
+                            $propList[$prop] = null;
                             $matchCount++;
                         }
                     }
                 }
 
                 if (count($A->rules)===$matchCount) {
+                    $A->rules        = $propList;
                     $A->toRender     = false;
                     $hasMatchingRule = true;
                     $this->addReference(
@@ -165,12 +167,13 @@ class CSSBuildManager {
                     break;
                 }
 
-                if ($matchCount>0)
+                if (count($C->rules)===$matchCount) {
+                    $A->rules = $propList;
                     $this->addReference(
                         realName: $A->realName,
                         minifiedName: $C->minifiedName
                     );
-
+                }
             }
 
             if(!$hasMatchingRule) {

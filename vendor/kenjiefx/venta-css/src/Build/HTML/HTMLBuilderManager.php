@@ -56,7 +56,6 @@ class HTMLBuilderManager {
                 $this->build('/'.$fileName);
             }
 
-
         },['frontEnd'=>$this->venta->getFrontend(),'backEnd'=>$this->venta->getBackend()]);
     }
 
