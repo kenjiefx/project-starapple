@@ -1,0 +1,83 @@
+.flex {
+  display: flex;
+}
+
+.dir-col {
+  flex-direction: column;
+}
+
+.ac {
+  align-items: center;
+}
+
+.cb {
+  cursor: pointer;
+}
+
+.jc {
+  justify-content: center;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.hinherit {
+  height: inherit;
+}
+
+.h100 {
+  height: 99vh;
+}
+
+.hdevicefull {
+  height: 100vh;
+}
+
+.express-on-mobile {
+    display: block;
+}
+
+.express-on-desktop {
+    display: none;
+}
+
+.flex-row-reverse-desktop_row-mobile {flex-direction:column;}
+
+
+
+@media only screen and (min-width: 1201px) {
+    .express-is-mobile {
+        display: none;
+    }
+    .express-is-desktop {
+        display: block;
+    }
+    .flex-row-reverse-desktop_row-mobile {flex-direction:row-reverse;}
+}
+
+@media screen and (max-width: 1200px) and (min-width: 993px) {
+    .express-is-mobile {
+        display: none;
+    }
+    .express-is-desktop {
+        display: block;
+    }
+    .flex-row-reverse-desktop_row-mobile {flex-direction:row-reverse;}
+}
+
+@media screen and (max-width: 992px) and (min-width: 769px) {
+    .express-is-mobile {
+        display: none;
+    }
+    .express-is-desktop {
+        display: block;
+    }
+    .flex-row-reverse-desktop_row-mobile {flex-direction:row-reverse;}
+}
+
+@media screen and (max-width: 768px) and (min-width: 601px) {
+    .express-is-desktop {
+        display: none;
+    }
+}

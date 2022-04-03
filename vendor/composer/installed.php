@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'aa09da471173698bb855019a2eae5e043e3056c4',
+        'reference' => '4c3d4d801b02ee4b6a4f755aa24e7424f2310695',
         'name' => 'kenjie/project-starapple',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'aa09da471173698bb855019a2eae5e043e3056c4',
+            'reference' => '4c3d4d801b02ee4b6a4f755aa24e7424f2310695',
             'dev_requirement' => false,
         ),
         'kenjiefx/venta-css' => array(
@@ -27,7 +27,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '86fd028b2515592b0158dc4ddffef9fed051927e',
+            'reference' => 'da3556c9dd7bd28dbfbafd3604e1009e0bf3bdad',
             'dev_requirement' => false,
         ),
     ),

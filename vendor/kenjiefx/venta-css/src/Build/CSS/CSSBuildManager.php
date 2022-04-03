@@ -8,6 +8,7 @@ use \Kenjiefx\VentaCss\Build\CSS\CSSModel;
 use \Kenjiefx\VentaCss\Build\CSS\ClassModel;
 use \Kenjiefx\VentaCss\Build\CSS\SelectorModel;
 use \Kenjiefx\VentaCss\Build\CSS\Utils;
+use \Kenjiefx\VentaCss\Build\CSS\CSSChunker;
 use \Kenjiefx\VentaCss\Build\CSS\SelectorMatcher as Matching;
 
 class CSSBuildManager {
@@ -41,6 +42,8 @@ class CSSBuildManager {
             rawCss: $this->venta->getCssToBuild()
         );
 
+        $this->chunk();
+
         # Next, we parse the raw CSS into an array
         Utils::parseRawCss($this->ParsedCSS);
 
@@ -52,12 +55,18 @@ class CSSBuildManager {
             $this->register($selector,$rules);
         }
 
-
-
         CoutStreamer::cout('Compressing class names...');
         $this->reduce();
         $this->sortRegistrar();
+
+        file_put_contents(
+            $this->venta->getBackend().'/venta/__venta.registry.json',
+            json_encode($this->theRegistrar)
+        );
+
         $this->compile();
+
+        $this->mediaQuery();
 
         CoutStreamer::cout('Saving venta/app.css...');
         $this->release();
@@ -68,6 +77,13 @@ class CSSBuildManager {
 
     }
 
+    private function chunk()
+    {
+        $chunker = new CSSChunker($this->ParsedCSS->getRaw());
+        $raw     = $chunker->init()->getNativeBlocks();
+        $this->ParsedCSS->setRaw($raw);
+        return;
+    }
 
     private function register(
         string $selectorName,
@@ -161,6 +177,10 @@ class CSSBuildManager {
                     $hasMatchingRule = true;
                     $this->addReference(
                         realName: $A->realName,
+                        minifiedName: $A->minifiedName
+                    );
+                    $this->addReference(
+                        realName: $A->realName,
                         minifiedName: $C->minifiedName
                     );
                     array_push($this->theCompiled,$A);
@@ -252,6 +272,31 @@ class CSSBuildManager {
             $this->venta->getBackend().'/venta/__venta.map.json',
             json_encode($this->theReference)
         );
+        file_put_contents(
+            $this->venta->getBackend().'/venta/__venta.compiled.json',
+            json_encode($this->theCompiled)
+        );
+    }
+
+    private function mediaQuery()
+    {
+        $chunker = new CSSChunker($this->venta->getCssToBuild());
+        $mediaBlocks = $chunker->init()->getMediaBlocks();
+        foreach ($mediaBlocks as $mediaBlock) {
+            $raw = CSSChunker::getMediaBlockContent($mediaBlock);
+            $MediaCSS = new CSSModel;
+            $MediaCSS->setRaw($raw);
+            Utils::parseRawCss($MediaCSS);
+            foreach ($MediaCSS->export() as $selector => $rules) {
+                if (!isset($this->theReference[trim($selector)])) {
+                    $mediaSelector = new SelectorModel($selector);
+                    $mediaSelector->minifyName($this->theTracker);
+                    $mediaSelector->rules = $rules;
+                    array_push($this->theCompiled,$mediaSelector);
+                    $this->addReference($selector,$mediaSelector->minifiedName);
+                }
+            }
+        }
     }
 
 }

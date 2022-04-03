@@ -11,15 +11,17 @@ class Venta {
     private string $frontend;
     private string $backend;
     private array $config;
+    private array $extensions;
 
     public function __construct(
         string|null $namespace = null
         )
     {
         $this->config = Config::load();
-        $this->namespace = $namespace ?? $this->config['namespace'];
-        $this->frontend  = ROOT.'/'.$this->namespace;
-        $this->backend   = ROOT.'/vnt/'.$this->namespace;
+        $this->namespace  = $namespace ?? $this->config['namespace'];
+        $this->extensions = $this->config['extensions'] ?? [];
+        $this->frontend   = ROOT.'/'.$this->namespace;
+        $this->backend    = ROOT.'/vnt/'.$this->namespace;
         $this->validate();
     }
 
@@ -52,18 +54,26 @@ class Venta {
      */
     public function getCssToBuild(): string
     {
-        $appCssPath = $this->frontend.'/venta/app.css';
+        $extensions = $this->extensions;
+        $css = '';
+        array_push($extensions,'app.css');
+
         try {
-            if (!file_exists($appCssPath)) {
-                throw new \Exception(
-                    'Unable to load Venta raw CSS: /venta/app.css'
-                );
+            foreach ($extensions as $extension) {
+                $cssPath = "{$this->frontend}/venta/{$extension}";
+                if (!file_exists($cssPath)) {
+                    throw new \Exception(
+                        "Unable to load Venta raw CSS file: /venta/{$extension}"
+                    );
+                }
+                $css .= file_get_contents($cssPath);
             }
         } catch (\Exception $e) {
-            CoutStreamer::cout($e->getMessage(),'error');
+            CoutStreamer::cout('Error: '.$e->getMessage(),'error');
             exit();
         }
-        return file_get_contents($appCssPath);
+
+        return $css;
     }
 
     public function getFrontend(): string

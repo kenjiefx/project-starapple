@@ -13,7 +13,7 @@ class VentaConfigInitializer {
         )
     {
         $path = ROOT.Self::CONFIG_PATH;
-        if (!file_exists($path)) 
+        if (!file_exists($path))
             Self::createApp($dir);
 
     }
@@ -48,7 +48,7 @@ class VentaConfigInitializer {
         $config = [
             'namespace'=>$dir,
             'ignore'=>[],
-            'plugins'=>[]
+            'extensions'=>[]
         ];
         file_put_contents($configPath,json_encode($config));
     }

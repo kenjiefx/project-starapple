@@ -67,16 +67,3 @@
     transform: rotate(359deg);
   }
 }
-
-.main-page--forum-left {
-  width: 40%;
-}
-
-.main-page--forum-right {
-  width: 60%;
-}
-
-.flex-on-desktop-reverse {
-  display: flex;
-  flex-direction: row-reverse;
-}
