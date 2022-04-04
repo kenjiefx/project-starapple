@@ -199,6 +199,16 @@
   padding-top: 20px;
 }
 
+.blog-title {
+    font-family:'Roboto';
+    font-weight: 700;
+}
+
+.blog-subtitle {
+    font-family:'Rubik';
+    font-weight: 300;
+}
+
 
 @media only screen and (min-width: 1201px) {
     .main-page--forum-left {
@@ -229,9 +239,9 @@
 
 @media screen and (max-width: 768px) and (min-width: 601px) {
     .main-page--forum-left {
-      width: 100%;
+      width: 40%;
     }
     .main-page--forum-right {
-      width: 100%;
+      width: 60%;
     }
 }
