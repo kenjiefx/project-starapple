@@ -1,6 +1,1 @@
-{
-	"namespace": "public",
-	"ignore": [],
-	"plugins": [],
-	"extensions": ["design-lib.css"]
-}
+{"namespace":"public","ignore":[],"extensions":["design-lib.css"]}

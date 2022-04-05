@@ -1,3 +1,6 @@
+.rub {font-family:'Rubik';}
+.rob {font-family:'Roboto';}
+
 .loading-container-wrapper {
   display: flex;
   width: 100%;
@@ -10,238 +13,194 @@
   height: 35px;
 }
 
-.left-banner {
-  width: 50%;
+.profile-page-content {
+  width:100%;
 }
 
-.login-card-wrapper {
-  width: 50%;
-}
-
-.login-card {
+.profile-cover-photo {
   width: 100%;
-  max-width: 420px;
-}
-
-.border-regular {
-  border-style: solid;
-  border-width: 1px;
-}
-
-.rob {
-  font-family: 'Roboto';
-}
-
-.rub {
-  font-family: 'Rubik';
-}
-
-.link-primary:link {
-  text-decoration: none;
-  color: #2196f3;
-}
-
-.link-primary:visited {
-  text-decoration: none;
-  color: #2196f3!important;
-}
-
-.link-primary:hover {
-  text-decoration: underline;
-  color: #2196f3;
-  width: inherit;
-}
-
-.left-banner-image {
-  width: 100%;
+  height: 200px;
   background-size: cover !important;
   background-position: center !important;
 }
 
-.error-message {
-  font-family: 'Rubik';
-  font-size: 14.3px;
-  font-weight: 400;
-  color: #e91e63;
-}
-
-.page-width {
-  max-width: 1024px;
-  width: 100%;
-}
-
-.input {
-  width: 100%;
-  padding: 16px;
+.profile-photo {
+  width: 130px;
+  height: 130px;
+  border-radius: 130px;
+  background-size: cover !important;
+  background-position: center !important;
+  border-color: #ffffff;
   border-style: solid;
-  border-width: 1px;
-  border-radius: 5px;
-  border-color: #bbbbbb;
+  border-width: 2px;
+}
+
+.profile-header-block {
+  padding: 0px 20px;
+  margin-top: -70px;
+}
+
+.profile-name {
+  font-size: 20.5px;
   font-family: 'Rubik';
-  font-size: 14px;
+  font-weight: 500;
+  color: #2e4a62;
+  margin-top: 8px;
 }
 
-.input-label {
-  font-family: 'Roboto';
-  font-weight: 400;
-  margin-bottom: 10px;
-  color: #2e2d2d;
-  font-size: 14.3px;
-  letter-spacing: 0.1px;
-}
-
-.spacer-medium {
-  margin-top: 23px;
-}
-
-.login-title {
-  font-family: 'Roboto';
-  font-size: 31px;
-  overflow-wrap: break-word;
-  font-weight: bold;
-  color: #282828;
-  margin-bottom: 5px;
-}
-
-.login-desc {
-  font-family:'Rubik';
-  font-weight: 300;
-  font-size: 15.6px;
-  margin-bottom: 34px;
-  color: #606060;
-}
-
-.login-button-cont {
-  margin-top: 28px;
-}
-
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background-color: #f7f7f7;
-}
-
-.site-logo {
-  font-family: 'Roboto';
-  font-size: 31px;
-  overflow-wrap: break-word;
-  font-weight: bold;
-  color: #282828;
-}
-
-.header-wrapper {
+.ratings-bottomline-wrapper {
+  margin-top: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.main-page-content {
-  margin-top: 70px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.project-image {
-  width: 100%;
-  height: auto;
-}
-
-.project-card-container {
-  position: relative;
-}
-
-.project-about-container {
-  padding: 20px 10px;
-  position: absolute;
-  bottom: -10;
-  width: 100%;
-  background: rgb(255,255,255);
-  background: linear-gradient(
-  0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.758140756302521) 41%, rgba(255,255,255,0) 100%);
-}
-
-.project-title {
-  font-family: 'Roboto';
-  font-size: 18px;
-  line-height: 24px;
-  font-weight: bold;
-  letter-spacing: 0.3px;
-}
-
-.project-tag {
+.profile-username {
+  font-size: 16.8px;
   font-family: 'Rubik';
-  font-size: 12px;
-  text-transform: uppercase;
+  font-weight: 200;
+  margin-top: 8px;
+  color: #6a6a6a;
+}
+
+.full-star {
+  height: 22px;
+  margin-right: -3px;
+}
+
+.header-wrapper-outer {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background: rgb(73,73,73);
+  background: linear-gradient(180deg, rgba(73,73,73,1) 0%, rgba(73,73,73,1) 0%, rgba(73,73,73,0.6923144257703081) 25%, rgba(73,73,73,0.4738270308123249) 50%, rgba(73,73,73,0) 100%);
+}
+
+.bottomline-ratings {
+  font-family: 'Rubik';
+  font-weight: 100;
+  font-size: 13.5px;
+  margin-left: 8px;
+}
+
+.profile-name-username-wrapper {width: max-content; margin-top: -3px;}
+
+.profile-card-section-list {
+  margin-top: 22px;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #f7f7f7;
+  padding-top: 18px;
+}
+
+.profile-card-section-title {
+  font-family: 'Roboto';
+  font-size: 13.5px;
   letter-spacing: 0.3px;
-  width: max-content;
-  background-color: #2196f3;
+  color: #3f89b5;
+  background: linear-gradient(0deg, #00447a 0%, #084676 58%, rgb(0 100 229) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.profile-column {
+  border-right: solid;
+  border-width: 1px;
+  border-color: #f5f5f5;
+}
+
+.socials-icon {width:36px; margin-right: 3px;}
+
+.social-list {margin-top:14px;}
+
+.about-me-description {
+  font-size: 14px;
+  line-height: 23px;
+  font-family: 'Roboto';
+  color: #000000;
+  margin-top: 8px;
+}
+
+.profile-city {
+   border-style: solid;
+   border-width: 1px;
+   padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Roboto';
+  font-size: 13px;
   color: white;
-  padding: 5px 10px;
-  border-radius: 20px;
-  margin-bottom: 8px;
+  background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(14,150,215,1) 58%, rgba(45,136,253,1) 100%);
 }
 
-.project-test {
-  border-radius: 20px;
-  margin-bottom: 8px;
+.site-attribution-wrapper {
+  margin-top: 12px;
 }
 
-.main-page--forum-left {
-  width: 100%;
-}
-.main-page--forum-right {
-  width: 100%;
-  padding-top: 20px;
-}
-
-.blog-title {
-    font-family:'Roboto';
-    font-weight: 700;
+.site-attribution {
+  font-size: 11px;
+  letter-spacing: 0.3px;
+font-family: 'Roboto';
+color: #a1a1a1;
 }
 
-.blog-subtitle {
-    font-family:'Rubik';
-    font-weight: 300;
+.site-nav-link {
+  font-size: 11.5px;
+  letter-spacing: 0.3px;
+  font-family: 'Roboto';
+  color: #a1a1a1;
 }
 
+.site-nav-link-wrapper {
+  display: flex;
+  margin-top: 8px;
+}
 
-@media only screen and (min-width: 1201px) {
-    .main-page--forum-left {
-      width: 40%;
-    }
-    .main-page--forum-right {
-      width: 60%;
-    }
+.site-nav-link {
+  margin-right: 5px;
+  border-right-style: solid;
+  padding-right: 8px;
+  border-right-width: 1px;
+}
+
+@media screen and (min-width: 1241px) {
+  .profile-page-content {display: flex;}
+  .profile-column {width: 100%; max-width: 420px;}
+  .profile-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 160px;
+  }
+  .profile-header-block {margin-top:-80px;}
+  .header-wrapper-outer {display: none;}
+  .profile-name-username-wrapper {display: flex;align-items: center;}
+  .profile-username {margin-left: 6px; margin-top: 5px;}
+}
+
+@media screen and (max-width: 1240px) and (min-width: 1201px) {
+  .profile-page-content {display: flex;}
+  .profile-column {width: 100%; max-width: 420px;}
+  .header-wrapper-outer {display: none;}
+  .profile-name-username-wrapper {display: flex;align-items: center;}
+  .profile-username {margin-left: 6px; margin-top: 5px;}
 }
 
 @media screen and (max-width: 1200px) and (min-width: 993px) {
-    .main-page--forum-left {
-      width: 40%;
-    }
-    .main-page--forum-right {
-      width: 60%;
-    }
+  .profile-page-content {display: flex;}
+  .profile-column {width: 100%; max-width: 400px;}
+  .header-wrapper-outer {display: none;}
+  .profile-name-username-wrapper {display: flex;align-items: center;}
+  .profile-username {margin-left: 6px; margin-top: 5px;}
 }
 
 @media screen and (max-width: 992px) and (min-width: 769px) {
-    .main-page--forum-left {
-      width: 40%;
-    }
-    .main-page--forum-right {
-      width: 60%;
-    }
+  .profile-page-content {display: flex;}
+  .profile-column {width: 100%; max-width: 380px;}
+  .header-wrapper-outer {display: none;}
+  .profile-name-username-wrapper {display: flex;align-items: center;}
+  .profile-username {margin-left: 6px; margin-top: 5px;}
 }
 
 @media screen and (max-width: 768px) and (min-width: 601px) {
-    .main-page--forum-left {
-      width: 40%;
-    }
-    .main-page--forum-right {
-      width: 60%;
-    }
+
 }

@@ -33,7 +33,7 @@ app.factory('components',function(){
     deletePost:'/c/delete-post.htm',
     header: '/components/header.htm',
     project:'/components/project.htm',
-    profileCard:'/c/profile-card.htm',
+    profileCard:'/components/profile-card.htm',
     accountOptions:'/components/account-options.htm'
   }
 });
