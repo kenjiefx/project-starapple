@@ -233,7 +233,7 @@ app.service('pageSvc',function($scope,$patch,$hide){
         $scope.pageSvc.errors.has = true;
         $scope.pageSvc.errors.message = message;
         $hide('main');
-        $patch('pageError');
+        $patch('pageState');
       }
     }
   }

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kenjiefx/venta-css.git",
-                "reference": "da3556c9dd7bd28dbfbafd3604e1009e0bf3bdad"
+                "reference": "bcc2a3e83710aa90d1657aac4fd692c2217b1fb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kenjiefx/venta-css/zipball/da3556c9dd7bd28dbfbafd3604e1009e0bf3bdad",
-                "reference": "da3556c9dd7bd28dbfbafd3604e1009e0bf3bdad",
+                "url": "https://api.github.com/repos/kenjiefx/venta-css/zipball/bcc2a3e83710aa90d1657aac4fd692c2217b1fb2",
+                "reference": "bcc2a3e83710aa90d1657aac4fd692c2217b1fb2",
                 "shasum": ""
             },
             "default-branch": true,
@@ -42,7 +42,7 @@
                 "issues": "https://github.com/kenjiefx/venta-css/issues",
                 "source": "https://github.com/kenjiefx/venta-css/tree/main"
             },
-            "time": "2022-04-03T15:39:19+00:00"
+            "time": "2022-04-05T02:34:58+00:00"
         }
     ],
     "packages-dev": [],
