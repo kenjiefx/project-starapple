@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/venta/app.css">
+    <link rel="stylesheet" href="/venta/design-lib.css">
+    <link rel="stylesheet" href="/widget/widget.css">
+    <link rel="stylesheet" href="/widget/editor.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
+    <script type="text/javascript" src="/widget/app.js"></script>
+  </head>
+  <body>
+    <section id="loader" class="loader-container">
+      <div class="loading-container-wrapper">
+        <img class="loader-spinner-icon" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
+      </div>
+    </section>
+    <section xscope="createPost" id="main" class="w100">
+      <header xcomponent="components.header"></header>
+      <main class="main-background">
+        <div class="main-page-content">
+          <div xpatch="pageState" class="page-width">
+            <div xif="pageSvc.errors.has==false" class="profile-page-content w100">
+              <div class="post-creator-wrapper w100">
+                <div class="post-creator-inner w100">
+                  <div class="post-creator-main">
+                    <div class="page-title-wrapper">
+                      <div class="page-breadcrumb">
+                        <a href="" class="page-breadcrumb-previous">Profile</a>
+                        <span class="page-breadcrumb-separator"> / </span>
+                        <span class="page-breadcrumb-current"> Create Post </span>
+                      </div>
+                      <div class="page-title">Create Post</div>
+                    </div>
+                    <div class="profile-thumbnail-wrapper">
+                      <div class="profile-thumbnail-inner">
+                        <div class="profile-thumbnail-photo-wrapper">
+                          <div class="profile-photo-thumbnail" style="background:url('https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=689&q=80')"></div>
+                        </div>
+                        <div class="profile-thumbnail-sidepane">
+                          <div class="profile-thumbnail-name">Kenjie Terrado</div>
+                          <div class="profile-thumbnail-username">@rterrado</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="post-editor-wrapper">
+                      <div class="flex">
+                        <div class="post-editor-buttons">
+                          <button xclick="Editor.switchView('Editor')" class="button" type="button" name="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="15" height="15" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path></svg> Editor</button>
+                          <button xclick="Editor.switchView('Preview')" class="button" type="button" name="button">Preview</button>
+                        </div>
+                        <div class="post-editor-helpers">
+                          <svg class="post-editor-helper-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M9 16h2v4h2V6h2v14h2V6h3V4H9c-3.309 0-6 2.691-6 6s2.691 6 6 6zM9 6h2v8H9c-2.206 0-4-1.794-4-4s1.794-4 4-4z"></path></svg>
+                          <svg class="post-editor-helper-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M18 20V4h-3v6H9V4H6v16h3v-7h6v7z"></path></svg>
+                          <svg class="post-editor-helper-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M17.061 11.22A4.46 4.46 0 0 0 18 8.5C18 6.019 15.981 4 13.5 4H6v15h8c2.481 0 4.5-2.019 4.5-4.5a4.48 4.48 0 0 0-1.439-3.28zM13.5 7c.827 0 1.5.673 1.5 1.5s-.673 1.5-1.5 1.5H9V7h4.5zm.5 9H9v-3h5c.827 0 1.5.673 1.5 1.5S14.827 16 14 16z"></path></svg>
+                          <svg class="post-editor-helper-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM5 19V5h14l.002 14H5z"></path><path d="m10 14-1-1-3 4h12l-5-7z"></path></svg>
+                        </div>
+                      </div>
+                      <div xpatch="editorView" class="post-editor-inner">
+                        <div xif="Editor.view=='Editor'">
+                          <textarea id="post-content" class="post-editor-editor" name="name" rows="8" cols="80" placeholder="Write Your Post Here"></textarea>
+                        </div>
+                        <div xif="Editor.view=='Preview'" class="PostView">
+                          {{post.preview}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div xif="pageSvc.errors.has==true" class="w100">
+              <div class="w100 h100 flex j-center a-center">
+                <div class="flex a-center dir-col">
+                  <svg class="error-bug" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="m16.895 6.519 2.813-2.812-1.414-1.414-2.846 2.846a6.575 6.575 0 0 0-.723-.454 5.778 5.778 0 0 0-5.45 0c-.25.132-.488.287-.722.453L5.707 2.293 4.293 3.707l2.813 2.812A8.473 8.473 0 0 0 5.756 9H2v2h2.307c-.065.495-.107.997-.107 1.5 0 .507.042 1.013.107 1.511H2v2h2.753c.013.039.021.08.034.118.188.555.421 1.093.695 1.6.044.081.095.155.141.234l-2.33 2.33 1.414 1.414 2.11-2.111a7.477 7.477 0 0 0 2.068 1.619c.479.253.982.449 1.496.58a6.515 6.515 0 0 0 3.237.001 6.812 6.812 0 0 0 1.496-.58c.465-.246.914-.55 1.333-.904.258-.218.5-.462.734-.716l2.111 2.111 1.414-1.414-2.33-2.33c.047-.08.098-.155.142-.236.273-.505.507-1.043.694-1.599.013-.039.021-.079.034-.118H22v-2h-2.308c.065-.499.107-1.004.107-1.511 0-.503-.042-1.005-.106-1.5H22V9h-3.756a8.494 8.494 0 0 0-1.349-2.481zM8.681 7.748c.445-.558.96-.993 1.528-1.294a3.773 3.773 0 0 1 3.581 0 4.894 4.894 0 0 1 1.53 1.295c.299.373.54.8.753 1.251H7.927c.214-.451.454-.879.754-1.252zM17.8 12.5c0 .522-.042 1.044-.126 1.553-.079.49-.199.973-.355 1.436a8.28 8.28 0 0 1-.559 1.288 7.59 7.59 0 0 1-.733 1.11c-.267.333-.56.636-.869.898-.31.261-.639.484-.979.664s-.695.317-1.057.41c-.04.01-.082.014-.122.023V14h-2v5.881c-.04-.009-.082-.013-.122-.023-.361-.093-.717-.23-1.057-.41s-.669-.403-.978-.664a6.462 6.462 0 0 1-.871-.899 7.402 7.402 0 0 1-.731-1.108 8.337 8.337 0 0 1-.56-1.289 9.075 9.075 0 0 1-.356-1.438A9.61 9.61 0 0 1 6.319 11H17.68c.079.491.12.995.12 1.5z"></path></svg>
+                  <div class="page-error-message">{{pageSvc.errors.message}}</div>
+                  <div class="page-error-message">If this error persists, please <a href="/contact.html">contact us.</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+    <script type="text/javascript">
+        app.scope('createPost',['Requester','presets','components'],function($scope,pageSvc,utilSvc,$patch){
+          $scope.pageSvc = pageSvc;
+          $scope.utils = utilSvc;
+
+          $scope.post = {}
+
+          let username = utilSvc.queryParams.get('user');
+          if (null===username) username = $scope.Requester.username;
+          if (''===username.trim()) {
+            //pageSvc.errors.show('Sorry, something went wrong, and we could not display the page.');
+          } else {
+            $patch('pageState');
+          }
+
+          $scope.Editor = {
+            view: 'Editor',
+            switchView:function(view){
+              let content = $('#post-content').val();
+              if (view==='Preview') {
+                if ($scope.Editor.view!=='Preview') {
+                  let converter = new showdown.Converter();
+                  $scope.post.preview = converter.makeHtml(content);
+                  $scope.Editor.view = 'Preview';
+                  $scope.post.content = content;
+                  $patch('editorView');
+                  return;
+                }
+              }
+              if (view==='Editor') {
+                if ($scope.Editor.view!=='Editor') {
+                  $scope.Editor.view = 'Editor';
+                  $patch('editorView');
+                  $('#post-content').val($scope.post.content);
+                  return;
+                }
+              }
+            }
+          }
+
+        });
+    </script>
+  </body>
+</html>

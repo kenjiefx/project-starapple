@@ -1,15 +1,17 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profile</title>
+    <title>Create Post</title>
     <link rel="stylesheet" href="/venta/app.css">
     <link rel="stylesheet" href="/venta/design-lib.css">
     <link rel="stylesheet" href="/widget/widget.css">
+    <link rel="stylesheet" href="/widget/editor.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
     <script type="text/javascript" src="/widget/app.js"></script>
   </head>
   <body>
@@ -18,14 +20,40 @@
         <img class="loader-spinner-icon" src="https://cdn.shopify.com/s/files/1/0560/7466/6159/files/spinner.gif?v=1646281504">
       </div>
     </section>
-    <section xscope="profilePage" id="main" class="w100">
+    <section xscope="createPost" id="main" class="w100">
       <header xcomponent="components.header"></header>
       <main class="main-background">
         <div class="main-page-content">
           <div xpatch="pageState" class="page-width">
-            <div xif="pageSvc.errors.has==false" class="profile-page-content">
-              <div xcomponent="components.profileCard" class="profile-column"></div>
-              <div class="posts-column"></div>
+            <div xif="pageSvc.errors.has==false" class="profile-page-content w100">
+              <div class="post-creator-wrapper w100">
+                <div class="post-creator-inner w100">
+                  <div class="post-creator-main">
+                    <div class="page-title-wrapper">
+                      <div class="page-breadcrumb">
+                        <a href="" class="page-breadcrumb-previous">Profile</a>
+                        <span class="page-breadcrumb-separator"> / </span>
+                        <span class="page-breadcrumb-current"> Create Post </span>
+                      </div>
+                      <div class="page-title">Create Post</div>
+                    </div>
+                    <div class="post-editor-wrapper">
+                      <div class="post-editor-buttons">
+                        <button xclick="Editor.switchView('Editor')" class="button" type="button" name="button">Editor</button>
+                        <button xclick="Editor.switchView('Preview')" class="button" type="button" name="button">Preview</button>
+                      </div>
+                      <div xpatch="editorView" class="post-editor-inner">
+                        <div xif="Editor.view=='Editor'">
+                          <textarea id="post-content" class="post-editor-editor" name="name" rows="8" cols="80" placeholder="Write Your Post"></textarea>
+                        </div>
+                        <div xif="Editor.view=='Preview'" class="PostView">
+                          {{post.preview}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div xif="pageSvc.errors.has==true" class="w100">
               <div class="w100 h100 flex j-center a-center">
@@ -41,16 +69,43 @@
       </main>
     </section>
     <script type="text/javascript">
-        app.scope('profilePage',['Requester','presets','components'],function($scope,pageSvc,utilSvc,$patch){
+        app.scope('createPost',['Requester','presets','components'],function($scope,pageSvc,utilSvc,$patch){
           $scope.pageSvc = pageSvc;
           $scope.utils = utilSvc;
+
+          $scope.post = {}
 
           let username = utilSvc.queryParams.get('user');
           if (null===username) username = $scope.Requester.username;
           if (''===username.trim()) {
-            pageSvc.errors.show('Sorry, something went wrong, and we could not display the page.');
+            //pageSvc.errors.show('Sorry, something went wrong, and we could not display the page.');
           } else {
             $patch('pageState');
+          }
+
+          $scope.Editor = {
+            view: 'Editor',
+            switchView:function(view){
+              let content = $('#post-content').val();
+              if (view==='Preview') {
+                if ($scope.Editor.view!=='Preview') {
+                  let converter = new showdown.Converter();
+                  $scope.post.preview = converter.makeHtml(content);
+                  $scope.Editor.view = 'Preview';
+                  $scope.post.content = content;
+                  $patch('editorView');
+                  return;
+                }
+              }
+              if (view==='Editor') {
+                if ($scope.Editor.view!=='Editor') {
+                  $scope.Editor.view = 'Editor';
+                  $patch('editorView');
+                  $('#post-content').val($scope.post.content);
+                  return;
+                }
+              }
+            }
           }
 
         });

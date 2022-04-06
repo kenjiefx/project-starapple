@@ -1,0 +1,30 @@
+.post-editor-editor {
+  width: 100%;
+  font-size: 14px;
+  padding: 12px 14px;
+  border-color: #ebebeb;
+  border-radius: 8px;
+}
+
+.post-editor-wrapper {
+  margin-top: 24px;
+}
+
+.post-editor-inner {
+  margin-top: 24px;
+}
+
+.post-editor-editor:focus {
+  outline: none !important;
+  border:1px solid #cdcdcd;
+}
+
+h1,h2,h3.PostView {
+  font-family:'Roboto';
+}
+
+.PostView p {
+  font-family:'Rubik';
+  font-size: 14px;
+  line-height: 23px;
+}

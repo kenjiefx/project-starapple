@@ -13,7 +13,7 @@
   border-width: 1px;
   padding: 12.5px 15px;
   border-radius: 5px;
-  font-size: 16.5px;
+  font-size: 13.5px;
   letter-spacing: 0.3px;
   cursor: pointer;
   font-family: 'Roboto';
@@ -66,4 +66,18 @@
   to {
     transform: rotate(359deg);
   }
+}
+
+
+.site-logo-is-text {
+  font-family:'Roboto';
+  color: #ffffff;
+  font-weight: 800;
+}
+.site-logo-is-text span{
+    font-size: 38px;
+    text-shadow: -0.08em 0.03em 0.12em rgba(0,0,0,0.7);
+}
+.site-logo-is-text span:not(:first-child){
+    margin-left: -0.18em;
 }
