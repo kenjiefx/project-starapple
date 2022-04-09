@@ -16,15 +16,56 @@
 
 .post-editor-editor:focus {
   outline: none !important;
-  border:1px solid #cdcdcd;
+  border:1px solid #ff5722;
 }
 
 h1,h2,h3.PostView {
   font-family:'Roboto';
+  margin-bottom: 8px;
+  margin-top: 5px;
 }
 
 .PostView p {
   font-family:'Rubik';
   font-size: 14px;
   line-height: 23px;
+  font-weight: 200;
+  margin-bottom: 8px;
+}
+
+.PostView .MainContent {
+  padding: 20px;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 5%);
+  border-top: solid;
+  border-top-width: 1px;
+  border-top-color: #ff5722;
+}
+
+.PostView img {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.PostView li {
+  font-family: 'Roboto';
+  font-size: 14.3px;
+  margin-bottom: 5px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+h4 {
+  font-size: 14px;
 }

@@ -12,6 +12,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenjiefx/strawberry-js/dist/strawberry.v1.0.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.29.2/moment.min.js"></script>
     <script type="text/javascript" src="/widget/app.js"></script>
   </head>
   <body>
@@ -27,9 +29,7 @@
           <div xpatch="pageState" class="page-width">
             <div xif="pageSvc.errors.has==false" class="profile-page-content w100">
               <div class="post-creator-wrapper">
-                <div xcomponent="components.projectCard" class="project-card-wrapper">
-
-                </div>
+                <div xcomponent="components.projectCard" class="project-card-wrapper"></div>
                 <div class="post-creator-inner">
                   <div class="post-creator-main">
                     <div class="page-title-wrapper">
@@ -51,27 +51,10 @@
                         </div>
                       </div>
                     </div>
-                    <div class="post-editor-wrapper">
-                      <div class="flex">
-                        <div class="post-editor-buttons">
-                          <button xclick="Editor.switchView('Editor')" class="button" type="button" name="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="15" height="15" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path></svg> Editor</button>
-                          <button xclick="Editor.switchView('Preview')" class="button" type="button" name="button">Preview</button>
-                        </div>
-                        <div class="post-editor-helpers">
-                          <svg class="post-editor-helper-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M18 20V4h-3v6H9V4H6v16h3v-7h6v7z"></path></svg>
-                          <svg class="post-editor-helper-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M17.061 11.22A4.46 4.46 0 0 0 18 8.5C18 6.019 15.981 4 13.5 4H6v15h8c2.481 0 4.5-2.019 4.5-4.5a4.48 4.48 0 0 0-1.439-3.28zM13.5 7c.827 0 1.5.673 1.5 1.5s-.673 1.5-1.5 1.5H9V7h4.5zm.5 9H9v-3h5c.827 0 1.5.673 1.5 1.5S14.827 16 14 16z"></path></svg>
-                          <svg class="post-editor-helper-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="transform: ;msFilter:;"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM5 19V5h14l.002 14H5z"></path><path d="m10 14-1-1-3 4h12l-5-7z"></path></svg>
-                        </div>
-                      </div>
-                      <div xpatch="editorView" class="post-editor-inner">
-                        <div xif="Editor.view=='Editor'">
-                          <textarea id="post-content" class="post-editor-editor" name="name" rows="8" cols="80" placeholder="Write Your Post Here"></textarea>
-                        </div>
-                        <div xif="Editor.view=='Preview'" class="PostView">
-                          {{post.preview}}
-                        </div>
-                      </div>
-                    </div>
+                    <!--Post Editor Component-->
+                    <div xcomponent="components.postEditor" class="post-editor-wrapper"></div>
+                    <br>
+                    <br>
                   </div>
                 </div>
               </div>
@@ -88,6 +71,8 @@
           </div>
         </div>
       </main>
+      <footer xcomponent="components.footer">
+      </footer>
     </section>
     <script type="text/javascript">
         app.scope('createPost',['Requester','presets','components'],function($scope,pageSvc,utilSvc,$patch){
@@ -106,6 +91,7 @@
 
           $scope.Editor = {
             view: 'Editor',
+            timestamp: moment(),
             switchView:function(view){
               let content = $('#post-content').val();
               if (view==='Preview') {
@@ -125,6 +111,24 @@
                   $('#post-content').val($scope.post.content);
                   return;
                 }
+              }
+            },
+            helpers:{
+              showExample:(type)=>{
+                let content = $('#post-content').val();
+                let example = '';
+                switch (type) {
+                  case 'headings':
+                    example = '## Add Your Heading here (do not remove the ## at the front)';
+                    break;
+                  case 'bold':
+                    example = '**Add your text here**';
+                    break;
+                  default:
+                }
+                $scope.post.content = content+example;
+                $patch('editorView');
+                $('#post-content').val($scope.post.content);
               }
             }
           }

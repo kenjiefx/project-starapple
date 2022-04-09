@@ -32,6 +32,8 @@ app.factory('components',function(){
   return {
     deletePost:'/c/delete-post.htm',
     header: '/components/header.htm',
+    footer:'/components/footer.htm',
+    postEditor:'/components/post-editor.htm',
     project:'/components/project.htm',
     profileCard:'/components/profile-card.htm',
     projectCard:'/components/project-card.htm',
