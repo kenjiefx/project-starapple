@@ -34,6 +34,7 @@ app.factory('components',function(){
     header: '/components/header.htm',
     project:'/components/project.htm',
     profileCard:'/components/profile-card.htm',
+    projectCard:'/components/project-card.htm',
     accountOptions:'/components/account-options.htm'
   }
 });
