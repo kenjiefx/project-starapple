@@ -75,7 +75,6 @@ app.factory('Requester',function(presets){
       if (localStorage.getItem('rphoto')!=='null') {
           this.profilePhoto = localStorage.getItem('rphoto');
       }
-
     }
     signOut(){
       this.set({
